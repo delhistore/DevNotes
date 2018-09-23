@@ -106,9 +106,9 @@ A.1 T-test- works good for only small sample size(<30), also called student t te
 different from each other. ie. used to determine if samples from two population are significantly fdifferent and if the difference will remain in future tests too.
 ie (X - µ) / s/(n^1/2)
 where X is the sample mean from a sample X1, X2, …, Xn, of size n, s is the standard error of the mean, s is the population standard deviation of the data, and 
-µ is the population mean. if the value is higher than critical value from the table then there is significant difference.
+µ is the population mean. if the value is higher than critical value from the table then there is significant difference. It is different for different dataset.
 
-A.2 F-test: A Z-test is any statistical test for which the distribution of the test statistic under the null hypothesis can be approximated by a normal distribution. 
+A.2 Z-test: A Z-test is any statistical test for which the distribution of the test statistic under the null hypothesis can be approximated by a normal distribution. 
 Because of the central limit theorem, many test statistics are approximately normally distributed for large samples. For each significance level, the Z-test has a 
 single critical value (for example, 1.96 for 5% two tailed) which makes it more convenient than the Student's t-test which has separate critical values for each 
 sample size. Therefore, many statistical tests can be conveniently performed as approximate Z-tests if the sample size is large or the population variance is known. 
@@ -121,6 +121,13 @@ from which one-tailed and two-tailed p-values can be calculated as F(-Z) (for up
 where F is the standard normal cumulative distribution function.
 
 Z-Test : gives the number of std deviations that is observation is away from mean. 68% of observation have z=1, 97.7% have z=2, 99% have z=3. [x-mean / sigma]
+95% = 1.96
+
+F-test
+An F-test is any statistical test in which the test statistic has an F-distribution under the null hypothesis. It is most often used when comparing statistical 
+models that have been fitted to a data set, in order to identify the model that best fits the population from which the data were sampled. Exact "F-tests" mainly 
+arise when the models have been fitted to the data using least squares. The name was coined by George W. Snedecor, in honour of Sir Ronald A. Fisher. Fisher
+initially developed the statistic as the variance ratio in the 1920s.
 
 Chi-Square
 It is an algorithm to find out the statistical significance between the differences between sub-nodes and parent node. We measure it by sum of squares of 

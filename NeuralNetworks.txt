@@ -66,6 +66,7 @@ _________________________________________________________________
 6. model.predict -> softmax probabilities and model.predict_classes -> predicts classes 0 or 1
 7. Model weights or the whole model can be saved and loaded.
 
+Steps per epoch in fit_generator should ideally be number of samples//batch size
 
 Note :
 Use denoising autoencoder (layer 1 - 5bits => encode => layer 2 - 3bits (bottleneck) => decode => layer 3 - 5bits)
@@ -287,17 +288,7 @@ It performs one update at a time after one whole iteration.
 
 ##############################  Getting started with the Keras Sequential model  #######################################
 
-Examples
-Here are a few examples to get you started!
-
-In the examples folder, you will also find example models for real datasets:
-
-CIFAR10 small images classification: Convolutional Neural Network (CNN) with realtime data augmentation
-IMDB movie review sentiment classification: LSTM over sequences of words
-Reuters newswires topic classification: Multilayer Perceptron (MLP)
-MNIST handwritten digits classification: MLP & CNN
-Character-level text generation with LSTM
-
+See keras docs
 
 #############################  Layers  ################################################
 1. Dense or fully connected layers (first layer is dense with an input_shape parameter defining our first layer so dense becomes second layer)

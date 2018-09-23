@@ -8,8 +8,8 @@ There are three basic criterion for a time series to understand whether it is st
 Statistical properties of time series such as mean, variance should remain constant over time to call time series is stationary
 constant mean
 constant variance
-autocovariance that does not depend on time. autocovariance is covariance between time series and lagged time series.
-Lets visualize and check seasonality trend of our time series.
+autocovariance that does not depend on time. autocovariance is covariance between time series and lagged time series. first_difference = ts - ts.shift(-1).
+Vvisualize and check seasonality trend of our time series.
 
 Applications of LSTM - Speech to text, Character-level text generation with LSTM, Time series
 LSTM or RNNs can predict what will happen in future by finding the pattern. tomorrow morning things depends on tonight output of tomorrow morning fed into tonight,
