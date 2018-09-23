@@ -1,0 +1,183 @@
+
+
+##################################################################################################################################
+####################################    Data Science     #########################################################################
+##################################################################################################################################
+
+univariate, bivariate and multivariate analysis:
+These are descriptive statistical analysis techniques which can be differentiated based on the number of variables involved at a given point of time. 
+For example, the pie charts of sales based on territory involve only one variable and can be referred to as univariate analysis.
+If the analysis attempts to understand the difference between 2 variables at time as in a scatterplot, then it is referred to as bivariate analysis. 
+For example, analysing the volume of sale and a spending can be considered as an example of bivariate analysis.
+Analysis that deals with the study of more than two variables to understand the effect of variables on the responses is referred to as multivariate analysis.
+
+standard normal distribution. This is a special case when \mu =0 and \sigma =1
+
+What is Interpolation and Extrapolation?
+Estimating a value from 2 known values from a list of values is Interpolation. Extrapolation is approximating a value by extending a known set of values or facts.
+
+Collaborative Filtering :
+Look for users who share the same rating patterns with the active user (the user whom the prediction is for).
+Use the ratings from those like-minded users found in step 1 to calculate a prediction for the active user
+
+In inferential statistics, the null hypothesis is a general statement or default position that there is no relationship between two measured phenomena, 
+or no association among groups. 
+
+P-value is used to determine the significance of results after a hypothesis test in statistics. P-value helps the readers to draw conclusions and is always 
+between 0 and 1.
+
+•           P- Value > 0.05 denotes weak evidence against the null hypothesis which means the null hypothesis cannot be rejected.
+
+•           P-value <= 0.05 denotes strong evidence against the null hypothesis which means the null hypothesis can be rejected.
+
+Do gradient descent methods always converge to same point?
+
+No, they do not because in some cases it reaches a local minima or a local optima point. You don’t reach the global optima point. 
+It depends on the data and starting conditions
+
+True positive - it was positive and prediction was true
+Sensitivity (also called the true positive rate, the recall, or probability of detection[1] in some fields) measures the proportion of actual positives 
+that are correctly identified as such (e.g., the percentage of sick people who are correctly identified as having the condition).
+Specificity (also called the true negative rate) measures the proportion of actual negatives that are correctly identified as such 
+(e.g., the percentage of healthy people who are correctly identified as not having the condition).
+
+MISSING VALUES:
+Understand the problem statement, understand the data and then give the answer.Assigning a default value which can be mean, minimum or maximum value. 
+Getting into the data is important.
+If it is a categorical variable, the default value is assigned. The missing value is assigned a default value.
+If you have a distribution of data coming, for normal distribution give the mean value.
+Should we even treat missing values is another important point to consider? If 80% of the values for a variable are missing then you can answer that 
+you would be dropping the variable instead of treating the missing values.
+
+skewness - tail being biased towards one end.
+kurtosis - fatness of tails hampers confidence intervals
+
+Recall  measures "Of all the actual true samples how many did we classify as true?" [ TP / TP + FN ] 
+Precision measures "Of all the samples we classified as true how many are actually true?"  [ TP / TP + FP ]
+
+k in k means : Then, plot a line chart of the SSE for each value of k. If the line chart looks like an arm, then the "elbow" on the arm is the value of k 
+that is the best.
+
+Q. Why L1 regularizations causes parameter sparsity whereas L2 regularization does not?
+
+Ans. Regularizations in statistics or in the field of machine learning is used to include some extra information in order to solve a problem in a better way.
+ L1 & L2 regularizations are generally used to add constraints to optimization problems.
+In L1 variables are penalized more as compared to L2 which results into sparsity.
+In other words, errors are squared in L2, so model sees higher error and tries to minimize that squared error.
+
+Training Set is to fit the parameters i.e. weights.
+Test Set is to assess the performance of the model i.e. evaluating the predictive power and generalization.
+Validation set is to tune the parameters and remove overfitting
+
+Outliers are extreme values that fall a long way outside of the other observations. ... The process of identifying outliers has many names in data mining 
+and machine learning such as outlier mining, outlier modeling and novelty detection and anomaly detection.
+
+R-Square can be calculated using the below formular -
+
+1 - (Residual Sum of Squares/ Total Sum of Squares)
+
+How will you find the correlation between a categorical variable and a continuous variable ?
+
+You can use the analysis of covariance technqiue to find the correlation between a categorical variable and a continuous variable.
+
+ 
+PROBABILITY AND STATISTICS :
+1. Descriptive stats: collecting summarising analysis presenting and plotting data on your own without any algorithms. only tells the results but it is never sure or 
+reliable to tell us if it happen again.
+2. Inferential stats: various tests to understand relation between variables (t test, f test, chisquare), for continous features use mean median mode, for categorical 
+use proportions or percentages, outliers can be detected and removed by normal distribution. tells about the forecast or the samples that we dont even have 
+
+DEPENDENT	INDEPENDENT	TEST
+categorical	cat		Chi-square test for independence
+categorical	continuous	Log regression
+continuous	cat		Annova/Ttest
+continuous	continuous	Pearson Correlation 
+
+Standard deviation: {E[x-xmean]^2 / n-1 }^1/2
+
+A. Parametric tests: assume underlying statistical distributions in the data. Therefore, several conditions of validity must be met so that the result of a parametric 
+test is reliable. For example, Student’s t-test for two independent samples is reliable only if each sample follows a normal distribution and if sample variances 
+are homogeneous(Equal variances across samples is called homogeneity of variance).  
+
+B. Nonparametric tests do not rely on any distribution. They can thus be applied even if parametric conditions of validity are not met.
+Parametric tests often have nonparametric equivalents.
+
+A.1 T-test- works good for only small sample size(<30), also called student t test. The t-test can be used, for example, to determine if two sets of data are significantly 
+different from each other. ie. used to determine if samples from two population are significantly fdifferent and if the difference will remain in future tests too.
+ie (X - µ) / s/(n^1/2)
+where X is the sample mean from a sample X1, X2, …, Xn, of size n, s is the standard error of the mean, s is the population standard deviation of the data, and 
+µ is the population mean. if the value is higher than critical value from the table then there is significant difference.
+
+A.2 F-test: A Z-test is any statistical test for which the distribution of the test statistic under the null hypothesis can be approximated by a normal distribution. 
+Because of the central limit theorem, many test statistics are approximately normally distributed for large samples. For each significance level, the Z-test has a 
+single critical value (for example, 1.96 for 5% two tailed) which makes it more convenient than the Student's t-test which has separate critical values for each 
+sample size. Therefore, many statistical tests can be conveniently performed as approximate Z-tests if the sample size is large or the population variance is known. 
+If the population variance is unknown (and therefore has to be estimated from the sample itself) and the sample size is not large (n < 30), the Student's t-test may 
+be more appropriate.
+
+If T is a statistic that is approximately normally distributed under the null hypothesis, the next step in performing a Z-test is to estimate the expected 
+value ? of T under the null hypothesis, and then obtain an estimate s of the standard deviation of T. After that the standard score Z = (T - ?) / s is calculated, 
+from which one-tailed and two-tailed p-values can be calculated as F(-Z) (for upper-tailed tests), F(Z) (for lower-tailed tests) and 2F(-|Z|) (for two-tailed tests)
+where F is the standard normal cumulative distribution function.
+
+Z-Test : gives the number of std deviations that is observation is away from mean. 68% of observation have z=1, 97.7% have z=2, 99% have z=3. [x-mean / sigma]
+
+Chi-Square
+It is an algorithm to find out the statistical significance between the differences between sub-nodes and parent node. We measure it by sum of squares of 
+standardized differences between observed and expected frequencies of target variable.
+
+It works with categorical target variable “Success” or “Failure”.
+It can perform two or more splits.
+Higher the value of Chi-Square higher the statistical significance of differences between sub-node and Parent node.
+Chi-Square of each node is calculated using formula,
+Chi-square = ((Actual – Expected)^2 / Expected)^1/2
+
+
+-------------------------------------------------------
+STATIONARY AND NON STATIONARY PROCESSES:
+if a time series has varying mean variance and covariance over time then we say it non stationary otherwise stationary. We need to convert non stationary process
+to stationary to be able to predict something.
+
+Variance inflation factor to detect multicollinearity:
+In statistics, multicollinearity (also collinearity) is a phenomenon in which one predictor variable in a multiple regression model can be linearly predicted 
+from the others with a substantial degree of accuracy.
+Methods:
+1. Check the correlation table but its just bivariate
+2. for multivariate, run auxiliary regressions ie try to predict first independent variable with the help of all others then second with elp of all others and so on
+measure R2 for all a high variable might indicate depence. Or better way is to calculate VIF = 1 / 1-R2 if >5 then dont include that variable in multiple regression.
+
+
+COVARIANCE AUTOCOVARIANCE CORRELATION AUTOCORRELATION:
+in time series modelling covariance is measure of linear dependencies (to see if the series is predictable in linear sense)
+Covariance(x,y) = E[(x-meanX) x (y-meanY)] but this covariance will show very huge and indeterministic value, ie extent of linear dependencies cant be determined, so,
+so we sort of normalise it by taking correlations Correl(x,y) = cov(x,y) / (var(x) x var(y))^1/2 that is between -1 and 1.
+ACF or autocorrelation function is Cov(Yt , Yt-k) for all k>=1 ie Cov(Yt , Y(t-1)) Cov(Yt , Yt-2) Cov(Yt , Y(t-3))
+Assumes that Yt is stationary
+
+The Spearman correlation between two variables is equal to the Pearson correlation between the rank values of those two variables;
+eg. Food items A B C D ranked by two people 2 3 1 4 and 4 3 2 1 respectively
+
+P VALUE:
+When you perform a hypothesis test in statistics, a p-value helps you determine the significance of your results. Hypothesis tests are used to test the validity 
+of a claim that is made about a population. This claim that’s on trial, in essence, is called the null hypothesis.
+The alternative hypothesis is the one you would believe if the null hypothesis is concluded to be untrue. The evidence in the trial is your data and the 
+statistics that go along with it. All hypothesis tests ultimately use a p-value to weigh the strength of the evidence (what the data are telling you about 
+the population). The p-value is a number between 0 and 1 and interpreted in the following way:
+A small p-value (typically = 0.05) indicates strong evidence against the null hypothesis, so you reject the null hypothesis.
+
+A large p-value (> 0.05) indicates weak evidence against the null hypothesis, so you fail to reject the null hypothesis.
+
+p-values very close to the cutoff (0.05) are considered to be marginal (could go either way). Always report the p-value so your readers can draw their own conclusions.
+
+CENTRAL LIMIT THEOREM :
+What is 'Central Limit Theorem - CLT'
+The central limit theorem states that when samples from a data set with a known variance are aggregated their mean roughly equals the population mean. 
+Said another way, CLT is a statistical theory that states that given a sufficiently large sample size from a population with a finite level of variance, 
+the mean of all samples from the same population will be approximately equal to the mean of the population. Furthermore, all the samples will follow an 
+approximate normal distribution pattern, with all variances being approximately equal to the variance of the population divided by each sample's size.
+Example of Central Limit Theorem
+If an investor is looking to analyze the overall return for a stock index made up of 1,000 stocks, he or she can take random samples of stocks from the index to 
+get an estimate for the return of the total index. The samples must be random, and he or she must evaluate at least 30 stocks in each sample for the central limit 
+theorem to hold. Random samples ensure a broad range of stock across industries and sectors is represented in the sample. Stocks previously selected must also be 
+replaced for selection in other samples to avoid bias. The average returns from these samples approximates the return for the whole index and are approximately 
+normally distributed. The approximation holds even if the actual returns for the whole index are not normally distributed.

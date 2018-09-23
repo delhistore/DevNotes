@@ -1,0 +1,310 @@
+
+##################################################################################################################################
+####################################  Neural Networks   ##########################################################################
+##################################################################################################################################
+
+----------------------------------------CNN image classification------------------------------------------------------------------
+
+1. Labels(For Keras labels need to be a numpy array) - { Text data - +ive / -ive,  Images - cat/dog }
+Samples(Need to be a list of numpy arrays) - numpy_array = np.array(list)
+2. Rescale your numpy arrays with feature values ranging from 0 to 1 for neural net to work with incase of regression or classification task.
+3.  With the Keras Sequential model, you do not explicitly add an input layer. Instead, the first layer that you see in the video is actually 
+the first hidden layer. Keras implicitly creates the input layer behind the scenes based on the input_shape parameter that you pass to the first hidden layer.
+4. # as first layer in a sequential model:
+model = Sequential()
+model.add(Dense(32, input_shape=(16,)))
+# now the model will take as input arrays of shape (*, 16)
+# and output arrays of shape (*, 32)
+5. No of trainable params in ANN = number of nodes in (prev layer + 1[bias])  x number of nodes in current layer 
+eg.
+model = models.Sequential()
+model.add(layers.Dense(2, activation='relu', input_dim=1))
+model.add(layers.Dropout(0.5))
+model.add(layers.Dense(3, activation='softmax'))
+model.summary() ->
+Layer (type)                 Output Shape              Param #   
+=================================================================
+dense_3 (Dense)              (None, 2)                 4         
+_________________________________________________________________
+dropout_2 (Dropout)          (None, 2)                 0         
+_________________________________________________________________
+dense_4 (Dense)              (None, 3)                 9         
+=================================================================
+Total params: 13
+Trainable params: 13
+Non-trainable params: 0
+
+------------------------------------------------------------------
+No of trainable params in CNN = ( #filters in prev layer x #filters in current layer x #filter size of current layer ) + #biases of current layerbiases
+eg.
+model = models.Sequential()
+model.add(layers.Conv2D(2, (3,3), activation='relu', input_shape=(20,20,3) ))
+model.add(layers.Conv2D(3, (3,3), activation='relu'))
+model.add(layers.Flatten())
+model.add(layers.Dense(2, activation='softmax'))
+model.summary()
+
+each cell of filter of current layer is connected by a weight to previous layer, increse the filter size, trainable params will increase
+
+Layer (type)                 Output Shape              Param #   
+=================================================================
+conv2d_198 (Conv2D)          (None, 18, 18, 2)         56   = 3 x (2 x {3x3} ) + 2     
+_________________________________________________________________
+conv2d_199 (Conv2D)          (None, 16, 16, 3)         57        
+_________________________________________________________________
+flatten_2 (Flatten)          (None, 768)               0         
+_________________________________________________________________
+dense_6 (Dense)              (None, 2)                 1538      
+=================================================================
+Total params: 1,651
+Trainable params: 1,651
+Non-trainable params: 0
+_________________________________________________________________
+
+?
+
+6. model.predict -> softmax probabilities and model.predict_classes -> predicts classes 0 or 1
+7. Model weights or the whole model can be saved and loaded.
+
+
+Note :
+Use denoising autoencoder (layer 1 - 5bits => encode => layer 2 - 3bits (bottleneck) => decode => layer 3 - 5bits)
+
+
+Always scale the columns between -1 to 1 for the neural networks
+
+Models are either:
+	1. Built on your own or
+	2. (Transfer Learning) taken from a pretrained model
+
+Transfer learning: take a ConvNet that has been pre-trained on ImageNet, remove the last fully-connected layer, then treat the rest of the ConvNet 
+as a feature extractor for the new dataset. Once you extract the features for all images, train a classifier for the new dataset. eg. GoogleNet or VGG-Net
+
+When the cost function is convex ( i.e. shaped like a bowl ), there is a principled way to iteratively find the best weight by a method called Gradient Descent.
+
+Deep Learning became a household name for AI engineers since 2012 when Alex Krizhevsky and his team won the ImageNet challenge. 
+ImageNet is a computer vision competition in which the computer is required to correctly classify the image of an object into one of 1000 categories.
+The objects include different types of animals, plants, instruments, furniture, Vehicles to name a few.
+
+Dense layers - Also called fully connected layer, since, each node in the input is connected to every node in the output,
+Activation layer - which includes activation functions like ReLU, tanh, sigmoid among others,
+Dropout layer – used for regularization during training,
+Flatten, Reshape, etc.
+Convolution layers – used for performing convolution,
+Pooling layers – used for down sampling,
+Recurrent layers,
+Locally-connected, normalization, etc.
+
+An important thing to note in the model definition is that we need to specify the input shape for the first layer. 
+This is done by the input_shape parameter passed along with the first Dense layer. The shapes of other layers are inferred by the compiler.
+
+########################
+Configuring the training process
+Once the model is ready, we need to configure the learning process. This means
+
+Specify an Optimizer which determines how the network weights are updated
+Specify the type of cost function or loss function.
+Specify the metrics you want to evaluate during training and testing.
+Create the model graph using the backend.
+Any other advanced configuration.
+This is done in Keras using the model.compile() function. The code snippet shows the usage.
+
+1
+model.compile(optimizer='rmsprop', loss='mse', metrics=['mse', 'mae'])
+The mandatory parameters to be specified are the optimizer and the loss function.
+
+Optimizers
+Keras provides a lot of optimizers to choose from, which include
+
+Stochastic Gradient Descent ( SGD ),
+Adam,
+RMSprop,
+AdaGrad,
+AdaDelta, etc.
+RMSprop is a good choice of optimizer for most problems.
+
+Loss functions
+In a supervised learning problem, we have to find the error between the actual values and the predicted value. There can be different metrics 
+which can be used to evaluate this error. This metric is often called loss function or cost function or objective function. There can be more than 
+one loss function depending on what you are doing with the error. In general, we use -
+binary-cross-entropy for a binary classification problem,
+categorical-cross-entropy for a multi-class classification problem,
+mean-squared-error for a regression problem and so on.
+
+#########################
+
+Neuron = f(b + E[Xi x Wi] )
+Activation funtions - SIgmoid 0 to 1, relu only allows +ive values to pass through, tanh -1 to 1
+Overfitting - Plot Accuracy vs Validation accuracy(Epochs vs accuraacy). Although the accuracy obtained above is very good, if you see the loss and 
+accuracy curves in the above figures, you’ll notice that the validation loss initially decrease, but then it starts increasing gradually. Also, 
+there is a substantial difference between the training and test accuracy. This is a clear sign of Overfitting which means that the network 
+has memorized the training data very well, but is not guaranteed to work on unseen data. Thus, the difference in the training and test accuracy.
+
+Add Regularization to the model
+Overfitting occurs mainly because the network parameters are getting too biased towards the training data. We can add a dropout layer to 
+overcome this problem to a certain extent. In case of dropout, a fraction of neurons is randomly turned off during the training process, 
+reducing the dependency on the training set by some amount.
+
+Multilayer Perceptron also give high accuracies but only if all images are centered otherwise fails miserably thats why we use CNNs.
+
+############################
+
+Let’s look at a concrete example and understand the terms. Suppose, the input image is of size 32x32x3. This is nothing but a 3D array of depth 3. 
+Any convolution filter we define at this layer must have a depth equal to the depth of the input. So we can choose convolution filters of depth 3 
+( e.g. 3x3x3 or 5x5x3 or 7x7x3 etc.).
+
+For a 32x32x3 input image and filter size of 3x3x3, we have 30x30x1 locations and there is a neuron corresponding to each location. Then 30x30x1 
+outputs or activations of all neurons are called the activation maps. The activation map of one layer serves as the input to the next layer.
+
+In our example, there are 30×30 = 900 neurons because there are that many locations where the 3x3x3 filter can be applied. Unlike traditional 
+neural nets where weights and biases of neurons are independent of each other, in case of CNNs the neurons corresponding to one filter in a layer 
+share the same weights and biases.
+In the above case, we slid the window by 1 pixel at a time. We can also slide the window by more than 1 pixel. This number is called the stride.
+
+Typically, we use more than 1 filter in one convolution layer. If we use 32 filters we will have an activation map of size 30x30x32. Please refer 
+to Figure below for a graphical view.
+
+As you can see, after each convolution, the output reduces in size (as in this case we are going from 32×32 to 30×30). For convenience, it’s a 
+standard practice to pad zeros to the boundary of the input layer such that the output is the same size as input layer.
+
+MAX POOLING LAYER - Pooling layer is mostly used immediately after the convolutional layer to reduce the spatial size (only width and height, not depth). 
+This reduces the number of parameters, hence computation is reduced. Using fewer parameters avoids overfitting.
+The most common form of pooling is Max pooling where we take a filter of size  p and apply the maximum operation over the sized part of the image.
+
+#############################
+
+Activation Functions :
+
+the loss function is shaped like a bowl. At any point in the training process, the partial derivatives of the loss function w.r.t to the weights is 
+nothing but the slope of the bowl at that location. One can see that by moving in the direction predicted by the partial derivatives, we can reach 
+the bottom of the bowl and therefore minimize the loss function.
+
+The activation function is also crucial for squashing the output of the neural network to be within certain bounds. The output of a neuron
+E[Xi x Wi] + b can take on very large values. This output, when fed to the next layer neuron without modification, can be transformed to even 
+larger numbers thus making the process computationally intractable. One of the tasks of the activation function is to map the output of a neuron 
+to something that is bounded ( e.g., between 0 and 1).
+
+pre-trained model is trained on a different task than the task at hand but provides a very useful starting point because the features learned while 
+training on the old task are useful for the new task.
+
+Types of Non-Linear Activation Functions
+
+5.1. Sigmoid (learn curve)
+It is also known as Logistic Activation Function. It takes a real-valued number and squashes it into a range between 0 and 1. It is also used in the 
+output layer where our end goal is to predict probability. It converts large negative numbers to 0 and large positive numbers to 1. The softmax 
+function is a more generalized logistic activation function which is used for multiclass classification.
+
+The major drawback of sigmoid is:
+
+Vanishing gradients: Notice, the sigmoid function is flat near 0 and 1. In other words, the gradient of the sigmoid is 0 near 0 and 1. During
+backpropagation through the network with sigmoid activation, the gradients in neurons whose output is near 0 or 1 are nearly 0. These neurons 
+are called saturated neurons. Thus, the weights in these neurons do not update.
+
+5.2. Tanh (learn curve)
+Similar to sigmoid, tanh also takes a real-valued number but squashes it into a range between -1 and 1. Unlike sigmoid, tanh outputs are zero-centered 
+since the scope is between -1 and 1. You can think of a tanh function as two sigmoids put together. In practice, tanh is preferable over sigmoid. 
+The negative inputs considered as strongly negative, zero input values mapped near zero, and the positive inputs regarded as positive. 
+Preferred over sigmoid because it is zero centered.
+The only drawback of tanh is:
+
+The tanh function also suffers from the vanishing gradient problem and therefore kills gradients when saturated.
+
+5.3. Rectified Linear Unit (ReLU)
+when the input x < 0 the output is 0 and if x > 0 the output is x. This activation makes the network converge much faster. It does not saturate which 
+means it is resistant to the vanishing gradient problem at least in the positive region ( when x > 0), so the neurons do not backpropagate all zeros 
+at least in half of their regions. ReLU is computationally very efficient because it is implemented using simple thresholding. But there are few 
+drawbacks of ReLU neuron :
+max(0,x)
+Not zero-centered: The outputs are not zero centered similar to the sigmoid activation function.
+The other issue with ReLU is that if x < 0 during the forward pass, the neuron remains inactive and it kills the gradient during the backward pass. 
+Thus weights do not get updated, and the network does not learn. When x = 0 the slope is undefined at that point, but this problem is taken care 
+of during implementation by picking either the left or the right gradient.
+
+5.4. Leaky ReLU
+This was an attempt to mitigate the dying ReLU problem. 
+max(0.1x,x)
+The concept of leaky ReLU is when x < 0, it will have a small positive slope of 0.1. This function somewhat eliminates the dying ReLU problem, but the 
+results achieved with it are not consistent. Though it has all the characteristics of a ReLU activation function, i.e., computationally efficient, 
+converges much faster, does not saturate in positive region. The idea of leaky ReLU can be extended even further. Instead of multiplying x with a 
+constant term we can multiply it with a hyperparameter which seems to work better the leaky ReLU. This extension to leaky ReLU is known as Parametric ReLU.
+
+5.5. Parametric ReLU
+The PReLU function is given by
+f(x) = max(ax, x)
+Where a is a hyperparameter. The idea here was to introduce an arbitrary hyperparameter \alpha, and this \alpha can be learned since you can backpropagate into it. 
+This gives the neurons the ability to choose what slope is best in the negative region, and with this ability, they can become a ReLU or a leaky ReLU.
+
+In summary, it is better to use ReLU, but you can experiment with Leaky ReLU or Parametric ReLU to see if they give better results for your problem
+
+5.6. SWISH
+Also known as a self-gated activation function, has recently been released by researchers at Google. Mathematically it is represented as
+\sigma(x) = {x} / {1 + e^{-x}}
+Observe that in the negative region of the x-axis the shape of the tail is different from the ReLU activation function and because of this the output from the 
+Swish activation function may decrease even when the input value increases. Most activation functions are monotonic, i.e., their value never decreases as the 
+input increases. Swish has one-sided boundedness property at zero, it is smooth and is non-monotonic. 
+
+################# Pretrained models ##############################
+Keras comes bundled with many models. A trained model has two parts – Model Architecture and Model Weights. The weights are large files and thus they are not 
+bundled with Keras. However, the weights file is automatically downloaded ( one-time ) if you specify that you want to load the weights trained on ImageNet data. 
+It has the following models ( as of Keras version 2.1.2 ):
+
+VGG16,
+InceptionV3,
+ResNet,
+MobileNet,
+Xception,
+InceptionResNetV2
+
+Since these models are very large and have seen a huge number of images, they tend to learn very good, discriminative features. We can either use the 
+convolutional layers merely as a feature extractor or we can tweak the already trained convolutional layers to suit our problem at hand. The former approach 
+is known as Transfer Learning and the latter as Fine-tuning.
+
+As a rule of thumb, when we have a small training set and our problem is similar to the task for which the pre-trained models were trained, we can use transfer 
+learning. If we have enough data, we can try and tweak the convolutional layers so that they learn more robust features relevant to our problem.
+
+
+############################# MAKE your dataset bigger by transformations  ########################
+Data pre-processing and data augmentation
+In order to make the most of our few training examples, we will "augment" them via a number of random transformations, so that our model would 
+never see twice the exact same picture. This helps prevent overfitting and helps the model generalize better.
+In Keras this can be done via the keras.preprocessing.image.ImageDataGenerator class. Data augmentation is one way to fight overfitting, but it isn't 
+enough since our augmented samples are still highly correlated.
+
+
+###############################  Optimisers  #######################################################
+A Gradient is represented by a Jacobian Matrix?—?which is simply a Matrix consisting of first order partial Derivatives(Gradients).
+
+1. Gradient Descent - ?=?-?·?J(?)?—?is the formula of the parameter updates, where ‘?’ is the learning rate ,’?J(?)’ is the Gradient of Loss 
+function-J(?) w.r.t parameters-‘?’. we propagate backwards in the Network carrying Error terms and updating Weights values using Gradient Descent, 
+in which we calculate (thetaI) = thetaI - alpha x { del (Loss Function) / del thetaI }
+2. Stochastic gradient descent
+Stochastic Gradient Descent(SGD) on the other hand performs a parameter update for each training example .It is usually much faster technique.
+It performs one update at a time after one whole iteration.
+3. *Adam fastest convergence
+4. ***Adagrad
+5. **rmsprop
+
+
+##############################  Getting started with the Keras Sequential model  #######################################
+
+Examples
+Here are a few examples to get you started!
+
+In the examples folder, you will also find example models for real datasets:
+
+CIFAR10 small images classification: Convolutional Neural Network (CNN) with realtime data augmentation
+IMDB movie review sentiment classification: LSTM over sequences of words
+Reuters newswires topic classification: Multilayer Perceptron (MLP)
+MNIST handwritten digits classification: MLP & CNN
+Character-level text generation with LSTM
+
+
+#############################  Layers  ################################################
+1. Dense or fully connected layers (first layer is dense with an input_shape parameter defining our first layer so dense becomes second layer)
+2. Dropout - leaves out some percentage of neurons for reducing overfitting
+3. Activation layer
+4. Convolution or layers with n x n filters
+5. Recurrent layer used for a time series data
+6. BatchNormalisation layers that normalises activations of previous layer mean - 0 std dev - 1
+
+

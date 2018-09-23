@@ -1,0 +1,38 @@
+1. Figure out if the problem is classification / regression, supervised / unsupervised, multiclass / multilabel 
+
+Missing Values:
+1. sklearn imputer to fill NaN with Mean Median Mode
+2. My way: if feature is too important then regress missing values ie predict it given other variable
+3. If it is a categorical variable, the default value is assigned. The missing value is assigned a default value.
+4. If you have a distribution of data coming, for normal distribution give the mean value.
+5. If 80% of the values for a variable are missing then you can answer that you would be dropping the variable instead of treating the missing values.
+
+For Continuous Variable:
+skewness - tail being biased towards one end.
+kurtosis - fatness of tails hampers confidence intervals. data sets with high kurtosis tend to have heavy tails, or outliers.
+
+Outlier Detection and Removal: 
+If it lies outside 99% confindence interval, ir if variance very high from mean.
+The Z-score is the signed number of standard deviations by which the value of an observation or data point is above or below the mean value of what is being observed 
+or measured.
+
+Convert a non-stationary process to a stationary process 
+
+Variance inflation factor to detect multicollinearity:
+In statistics, multicollinearity (also collinearity) is a phenomenon in which one predictor variable in a multiple regression model can be linearly predicted 
+from the others with a substantial degree of accuracy.
+Methods:
+1. Check the correlation table but its just bivariate
+2. for multivariate, run auxiliary regressions ie try to predict first independent variable with the help of all others then second with elp of all others and so on
+measure R2 for all a high variable might indicate depence. Or better way is to calculate VIF = 1 / 1-R2 if >5 then dont include that variable in multiple regression.
+
+SPEARMAN AND PEARSON CORRELATIONS and corresponding heat maps
+
+PCA to visualise 
+
+
+Last. Scaling and splitting the data
+
+Random forrest/XGBoost as a Forward Feature Selector 
+
+

@@ -1,0 +1,288 @@
+
+
+##################################################################################################################################
+####################################  Machine Learning  ##########################################################################
+##################################################################################################################################
+
+
+In case of a skewed binary classification problem we generally choose area under the receiver operating characteristic curve (ROC AUC or simply AUC). 
+AUC (TPR [TP/TP+FN] vs FPR[FP/TN+FP]) graph - area under the curve of TPR vs FPR graph, between 0 to 1 higher is better
+https://www.youtube.com/watch?v=OAl6eAyP-yo -> x axis predicted probablities ranging from 0 to 1, Y axis how many at predicted at that pobability 
+then select a threshhold value which would separate the classes of predicted true and predicted false watch video.
+
+In case of multi-label or multi-class classification problems, we generally choose categorical cross-entropy or multiclass log loss and mean squared error 
+in case of regression problems.
+
+1. The very first step is identification of the problem EDA. This can be done by looking at the labels. One must know if the problem is a binary classification, 
+a multi-class or multi-label classification or a regression problem.
+Outlier Detection and removal
+In statistics, an outlier is an observation point that is distant from other observations. Now that we know outliers can either be a mistake or just variance.
+The Z-score is the signed number of standard deviations by which the value of an observation or data point is above or below the mean value of what is being observed 
+or measured. The intuition behind Z-score is to describe any data point by finding their relationship with the Standard Deviation and Mean of the group of 
+data points. Z-score is finding the distribution of data where mean is 0 and standard deviation is 1 i.e. normal distribution.
+If the Z-score value is greater than or less than 3 or -3 respectively, that data point will be identified as outliers. thirs std dev would outside 99% Con. Int.
+Therefore it is totally upto you to either remove or correct outliers.
+
+2. After we have identified the problem, we split the data into two different parts, a training set and a validation. Do standard scaler and normaliser to
+bring the mean 0 and variance 1. In case of any kind of classification problem, use stratified splitting. In case of regression task, a simple K-Fold splitting 
+should suffice.
+
+3. Next step is identification of different variables in the data. There are usually three types of variables we deal with. Namely, numerical variables, 
+categorical variables and variables with text inside them.
+There are two ways in which we can handle categorical data:
+Convert the categorical data to labels
+Convert the labels to binary variables (one-hot encoding)
+Please remember to convert categories to numbers first using LabelEncoder before applying OneHotEncoder on it.
+
+4. Once, we have stacked the features together, we can start applying machine learning models. At this stage only models you should go for should be ensemble 
+tree based models. These models include:
+
+RandomForestClassifier
+RandomForestRegressor
+ExtraTreesClassifier
+ExtraTreesRegressor
+XGBClassifier
+XGBRegressor
+
+5. Hyperparameter tuning by Randomised search cv.
+
+6. Next we could do decomposition,we tend to avoid PCA as long as we can deal with the numerical data as it is).
+For text data, after conversion of text to sparse matrix, go for Singular Value Decomposition (SVD). A variation of SVD called TruncatedSVD can be found 
+in scikit-lrn. The number of SVD components that generally work for TF-IDF or counts are between 120-200. Any number above this might improve the performance 
+but not substantially and comes at the cost of computing power.
+
+7. Feature selection (Forward or backward) : Other faster methods of feature selection include selecting best features from a model. We can either look at 
+coefficients of a logit model or we can train a random forest to select best features and then use them later with other machine learning models.
+The feature selection can also be achieved using Gradient Boosting Machines. It is good if we use xgboost instead of the implementation of GBM in scikit-learn 
+since xgboost is much faster and more scalable.
+
+8. draw correlation Matrix and get heat maps
+
+9. plot validation accuracy vs training accuracy for overfitting or plot 
+
+10. XGBoost for tabular dataframe pandas like problem with tuning of parameters.
+
+We generally use the following algorithms in the process of selecting a machine learning model:
+
+Classification:
+Random Forest
+GBM
+Logistic Regression
+Naive Bayes
+Support Vector Machines
+k-Nearest Neighbors
+Regression
+Random Forest
+GBM
+Linear Regression
+Ridge
+Lasso
+SVR
+
+
+---------------------------------  Scikit-Learn  ---------------------------------------------------------
+
+L1 Regularisation - Lasso makes the parameters sparse as the penalty added is " 1000*|theta3| " penalises linear theta
+L2 Regularisation - Ridge penalises squares of parameter so penalisation is less
+
+PCA is used to decompose a multivariate dataset in a set of successive orthogonal components that explain a maximum amount of the variance.
+Incremental PCA
+The PCA object is very useful, but has certain limitations for large datasets. The biggest limitation is that PCA only supports batch processing, which 
+means all of the data to be processed must fit in main memory. The IncrementalPCA object uses a different form of processing and allows for partial 
+computations which almost exactly match the results of PCA while processing the data in a minibatch fashion. IncrementalPCA makes it possible to implement 
+out-of-core Principal Component Analysis either by:
+
+Using its partial_fit method on chunks of data fetched sequentially from the local hard drive or a network database.
+
+sklearn.pipeline.Pipeline
+
+Linear Regression
+Logistic Regression
+Decision Tree
+SVM
+Naive Bayes
+kNN
+K-Means
+Random Forest
+Dimensionality Reduction Algorithms
+Gradient Boosting algorithms
+	GBM
+	XGBoost
+	LightGBM
+	CatBoost
+
+------------------------------------------------------------------------------------------------------------------
+--------------------------------  Regression Trees  --------------------------------------------------------------
+
+firstly make the binary tree as in classification case in which leaves were classes but not in regression trees.
+next we choose some error, say square errors, and minimise the errors by differentiating and setting it to 0. error = E{[Y - Yactual]^2}, PD(error)=0 and get Yhat
+Yhat will be kind of average of all Yis in that interval (0to1), all the Yhats will be your splits on y axis. hence error of leaf is minimised
+(video - https://www.youtube.com/watch?v=zvUOpbgtW3c&t=508s)
+
+How to split a node in a tree - http://www.ashukumar27.io/Decision-Trees-splitting/
+Gini Index
+Gini index says, if we select two items from a population at random then they must be of same class and probability for this is 1 if population is pure.
+
+It works with categorical target variable “Success” or “Failure”.
+It performs only Binary splits
+Higher the value of Gini higher the homogeneity.
+CART (Classification and Regression Tree) uses Gini method to create binary splits.
+
+Steps to Calculate Gini for a split
+Calculate Gini for sub-nodes, using formula sum of square of probability for success and failure (p2+q2).
+Calculate Gini for split using weighted Gini score of each node of that split
+
+no of girls = 10, play cricket = 2; guys = 20, cricket = 13; calss 9 = student 14 play 6, class 10 student 16 play 9
+Split on Gender:
+Calculate, Gini for sub-node Female = (0.2)(0.2)+(0.8)(0.8)=0.68
+Gini for sub-node Male = (0.65)(0.65)+(0.35)(0.35)=0.55
+Calculate weighted Gini for Split Gender = (10/30)0.68+(20/30)0.55 = 0.59
+Similar for Split on Class:
+Gini for sub-node Class IX = (0.43)(0.43)+(0.57)(0.57)=0.51
+Gini for sub-node Class X = (0.56)(0.56)+(0.44)(0.44)=0.51
+Calculate weighted Gini for Split Class = (14/30)0.51+(16/30)0.51 = 0.51
+
+Chi-Square
+It is an algorithm to find out the statistical significance between the differences between sub-nodes and parent node. We measure it by sum of squares of 
+standardized differences between observed and expected frequencies of target variable.
+
+It works with categorical target variable “Success” or “Failure”.
+It can perform two or more splits.
+Higher the value of Chi-Square higher the statistical significance of differences between sub-node and Parent node.
+Chi-Square of each node is calculated using formula,
+Chi-square = ((Actual – Expected)^2 / Expected)^1/2
+
+--------------------------------  XG-Boost (Follow Tianqi Chen) --------------------------------------------------------------
+XGBoost is an implementation of the Gradient Boosted Decision Trees algorithm (scikit-learn has another version of this algorithm, but XGBoost has some 
+technical advantages.)
+
+Take one classifier see how it performs add it to model , take another see what it predicts how it predicts add a weight to it add it to model,
+in this way we take many weak classifiers and make a strong one.
+FINAL MODEL = a1 x M1 + a2 x M2 + a3 x M3 + ....
+
+We go through cycles that repeatedly builds new models and combines them into an ensemble model. We start the cycle by calculating the errors for each 
+observation in the dataset. We then build a new model to predict those. We add predictions from this error-predicting model to the "ensemble of models."
+To make a prediction, we add the predictions from all previous models. We can use these predictions to calculate new errors, build the next model, and 
+add it to the ensemble.
+
+Model Tuning
+XGBoost has a few parameters that can dramatically affect your model's accuracy and training speed. The first parameters you should understand are:
+
+n_estimators and early_stopping_rounds
+n_estimators specifies how many times to go through the modeling cycle described above.
+It's smart to set a high value for n_estimators and then use early_stopping_rounds to find the optimal time to stop iterating.
+my_model = XGBRegressor(n_estimators=1000)
+my_model.fit(train_X, train_y, early_stopping_rounds=5, 
+             eval_set=[(test_X, test_y)], verbose=False)
+
+n_jobs
+On larger datasets where runtime is a consideration, you can use parallelism to build your models faster. It's common to set the parameter n_jobs 
+equal to the number of cores on your machine. 
+
+MODEL :
+Assuming we have k trees => Yi = E(k=1 to K) {Fm-1(xi) + a*Fm(xi)} 
+		OBJ Fn   => E(1 to n) LOSS(Yi - Ypred) + E(k=1 to K) Regularisation(fk)
+
+We need to learn structure and parameter of tree so SGD cannot be used therefore we use additive model where we keep functions to previous models so we 
+end up at k functions.
+
+Practical XGBOOST in python:
+
+
+
+
+
+--------------------------------------  Definitions  ----------------------------------------------------
+
+Contour plots- are ways a 3d shape into 2d by slicing the 3d figure and projecting it on xy plane. so the center point would represent minima.
+
+Backpropagation - error in prediction ie. Ypred=SOFTMAX(b+ wn1xn1 + wn2xn2 +...), error=(Target-Ypred) Y'(x), delta(W) = a*error*Zj(hidden layer j output)  
+
+R-square value:
+In statistics, the coefficient of determination, denoted R2 or r2 and pronounced "R squared", is the proportion of the variance in the dependent variable 
+that is predictable from the independent variable(s). ranges from 0 to 1. given by (1 - ESS/TSS)
+
+overfitting - how to know if it exists and all methods to overcome (Plot validation_accuracy and training_accuracy vs epochs graphs which should be roughly same)
+
+Convex and Non Convex Optimisers :
+
+Convexity of a problem ensures global minimum or maximum. can be determined if for all Y=[0,1] f(Yx + (1-Y)u) <= Yf(x) + (1-Y)f(u) for all x,u in domain of f.
+Or by getting the hessian matrix and if eigenvalues are positive semidefinite(Yi>=0) then it convex else it concave. 
+we can solve convex problems by method of lagrangian multipliers in which we get L(x,y,Y) then solve the three set of eqns del L / del x,y,Y. get hessian of L
+to confirm it is convex or concave to know that solution is minima or maxima. other methods include barrier function method.
+QPP is a specific case of cpp in which objective function is quadratic, it can be solved using Frank Wolfes method in which the problem is converted to 4 KKT 
+equations which is represented in a matrix form and solved using simplex.
+Charnes and cooper method for FPP in which objective funciton was f(x) / g(x).
+
+Non convex has many local minima and we need to find global one. 
+One solution is MULTISTART ALGO The basic idea here is to automatically start the nonlinear 
+Solver from randomly selected starting points, reaching different locally optimal solutions, then select the best of these as the proposed globally optimal 
+solution.  Multistart methods have a limited guarantee that (given certain assumptions about the problem) they will "converge in probability" to a globally 
+optimal solution. 
+Continuous Branch and Bound methods are designed to systematically subdivide the feasible region into successively smaller subregions, and 
+find locally optimal solutions in each subregion.  The best of the locally optimally solutions is proposed as the globally optimal solution.  Continuous Branch 
+and Bound methods have a theoretical guarantee of convergence to the globally optimal solution, but this guarantee usually cannot be realized in a reasonable 
+amount of computing time, for problems of more than a small number of variables.  Hence many Continuous Branch and Bound methods also use some kind of random or 
+statistical sampling to improve performance.
+
+Genetic Algorithms, Tabu Search and Scatter Search are designed to find "good" solutions to nonsmooth optimization problems, but they can also be applied to 
+smooth nonlinear problems to seek a globally optimal solution.
+The OptQuest Solver Engine uses tabu search and scatter search to solve nonsmooth optimization problems.
+ga(oobj function, parameter and constraints) in matlab can be solved.
+how to implement GA: We need
+1. a problem equation 2. a fitness function that determines if a solution is good or bad 3. a way to represent these as  DNA
+watch this for genetic algo explaination - https://www.youtube.com/watch?v=XP8R0yzAbdo, EXPLORATION, FIT ONES MATE WITH OTHER, RANDOM GENES GET INTO CHILD,
+MUTATION, EVOLUTION over time it gives a good solution.
+
+The simplex algorithm operates on linear optimisation programs in standard form. It works exactly how we solve LPP graphically but it can solve even when dimensions
+or the number of variables are more than 3 which we cannot plot.
+
+l1 and l2 regularisation : reg is a way of reducing overfitting. we add a term to cost function that can fit even higher degree polymials fit well with our 
+data by smoothening the curve due the penalty term (reg term) for higher order coefficients. underfitting means high bias so a simple linear model can said to 
+have a high bias ie it is biased towards a model x to the power 1 which is not doing the job. as we incerease model complexity-
+f(x) = theta0 + theta1x + theta2x2 + theta3x3...  where theta0, theta1 are parameters
+overfitting is also called high variance ie, small change in data can bring large differences to models and their predictions.
+suppose if f(x) / HYP = theta0 + theta1x + theta2x2 was just perfect and we added more complexity ie theta3x3 + theta4x4 to our model, in this case our cost function 
+might be zero exactly. so to reduce this variance in cost function-
+min(theta) J(theta) => del J / del theta = 0 to get such theta which reduces J.
+ir min(theta) i/ 2m * (E[HYP(complex model) - Yi]^2) + 1000*theta3 + 1000*theta4 
+where 1000*theta3 + 1000*theta4 is regularisation term would reduce values of theta3 theta4 eliminating complexity from our hypothesis.
+
+A regression model that uses L1 regularization technique is called Lasso Regression and model which uses L2 is called Ridge Regression.
+Ridge regression adds “squared magnitude” of coefficient as penalty term to the loss function. Here the highlighted part represents L2 regularization element.
+ie. 1000*(theta3^2).
+Lasso Regression (Least Absolute Shrinkage and Selection Operator) adds “absolute value of magnitude or mod” of coefficient as penalty term to the loss function.
+ie. 1000*|theta3|. 
+
+Again, if lambda(here 1000) is zero then we will get back OLS whereas very large value will make coefficients zero hence it will under-fit.
+
+PCA - PCA is a method used to reduce number of variables in your data by extracting important one from a large pool. It reduces the dimension of your data with 
+the aim of retaining as much information as possible. In other words, this method combines highly correlated variables together to form a smaller number of an 
+artificial set of variables which is called “principal components” that account for most variance in the data.
+1. Start by (scaling = ?) normalizing the predictors by subtracting the mean from each data point and dividing by std dev. It is important to normalize the predictor as original 
+predictors can be on the different scale and can contribute significantly towards variance. The result will look like table 2 with a mean of zero.
+2. Next, calculate the covariance matrix for the data which would measure how two predictors move together. It is measured between two predictors but if you have 
+3-dimensional data (x, x1, x2), then measure the covariance between x x1, x x2, x1 x2. For reference covariance formula is: E1ton[x-mean * y-mean] / n-1
+3. Now, calculate Eigen values and Eigen vector of the covariance matrix. This helps in finding underlying patterns in the data. 
+4. We are almost there :). Perform reorientation. To convert the data into new axes multiply original data with eigenvectors, which suggests the direction of new 
+axes. Note, that you can choose to leave out smaller eigen vector or use both. Also, decide how many set of features to keep based on which set accounts for 95% 
+or more variance.
+5. Finally, the scores calculated from above step can be plotted and and fed into the predictive model. Plots gives us the sense of how close/highly correlated 
+two variables are. Instead of using original data to plot X and Y axis which doesn’t tell us much how points are related to each other, we plot transformed data 
+(using eigen vectors) that find patterns and shows the relationships between points.
+
+Bias vs Variance:
+Parametric or linear machine learning algorithms often have a high bias but a low variance.
+Non-parametric or non-linear machine learning algorithms often have a low bias but a high variance
+Bias(algorithms with huge number of parameters making mistake in making assumptions) vs variance(small change in dataset huge change in target prediction)
+
+
+
+
+
+
+
+
+
+
+
