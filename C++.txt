@@ -1,0 +1,85 @@
+A statically-typed language is a language where every variable has a type assigned to it at compile-time. In C++, this means that you must tell the compiler the type of each variable - that is, whether it's an int, or a double, or a string, etc. This contrasts with dynamically-typed languages like JavaScript or PHP, where each variable can hold any type, and that type can change at runtime.
+
+A free-form language is one where there are no requirements about where various symbols have to go with regard to one another. You can add as much whitespace as you'd like (or leave out any whitespace that you don't like). You don't need to start statements on a new line, and can put the braces around code blocks anywhere you'd like. This has led to a few holy wars about The Right Way To Write C++, but I actually like the freedom it gives you.
+
+C++ is regarded as a middle-level language, as it comprises a combination of both high-level and low-level language features.
+
+C++ was developed by Bjarne Stroustrup starting in 1979 at Bell Labs in Murray Hill, New Jersey, as an enhancement to the C language and originally named C with Classes but later it was renamed C++ in 1983.
+
+int main(int argc, char *argv[])
+
+Here, argc(argument count) stores the number of the arguments passed to the main function and argv(argument vector) stores the array of the one-dimensional array of strings. So, the passed arguments will get stored in the array argv and the number of arguments will get stored in the argc.
+
+Let's look at how to save the file, compile and run the program. Please follow the steps given below -
+
+Open a text editor and add the code as above.
+
+Save the file as: hello.cpp
+
+Open a command prompt and go to the directory where you saved the file.
+
+Type 'g++ hello.cpp' and press enter to compile your code. If there are no errors in your code the command prompt will take you to the next line and would generate a.out executable file.
+
+Now, type 'a.out' to run your program.
+
+You will be able to see ' Hello World ' printed on the window.
+
+const int* ptr; 
+declares ptr a pointer to const int type. You can modify ptr itself but the object pointed to by ptr shall not be modified.
+
+const int a = 10;
+const int* ptr = &a;  
+*ptr = 5; // wrong
+ptr++;    // right  
+While
+
+int * const ptr;  
+declares ptr a const pointer to int type. You are not allowed to modify ptr but the object pointed to by ptr.
+
+int a = 10;
+int *const ptr = &a;  
+*ptr = 5; // right
+ptr++;    // wrong
+Generally I would prefer the declaration like this which make it easy to read and understand (read from right to left):
+
+int const  *ptr; // ptr is a pointer to constant int 
+int *const ptr;  // ptr is a constant pointer to int
+
+The volatile keyword is intended to prevent the compiler from applying any optimizations on objects that can change in ways that cannot be determined by the compiler. Objects declared as volatile are omitted from optimization because their values can be changed by code outside the scope of current code at any time.
+
+The mutable storage class specifier is used only on a class data member to make it modifiable even though the member is part of an object declared as const. You cannot use the mutable specifier with names declared as static or const, or reference members.
+
+In the following example:
+
+class A
+{
+  public:
+    A() : x(4), y(5) { };
+    mutable int x;
+    int y;
+};
+
+int main()
+{
+  const A var2;
+  var2.x = 345;
+  // var2.y = 2345;
+}
+the compiler would not allow the assignment var2.y = 2345 because var2 has been declared as const. The compiler will allow the assignment var2.x = 345 because A::x has been declared as mutable.
+
+What is the role of mutable storage class specifier?
+A constant class object’s member variable can be altered by declaring it using mutable storage class specifier. Applicable only for non-static and non-constant member variable of the class.
+
+
+
+
+
+
+
+
+
+
+
+
+
+

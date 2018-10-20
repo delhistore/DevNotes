@@ -1,0 +1,5 @@
+
+Var vs let
+var declares variable not limited to current scope block
+The let statement declares a block scope local variable.
+

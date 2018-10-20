@@ -1,0 +1,92 @@
+URL -> DNS servers convert to www.xyz.com to physical ip address or the server ip address -> DNS recursor -> TCP/IP (SYN,SYN/ACK,ACK) three way handshake connection
+via HTTP or HTTPS established -> get into file directory specified by HTTPS/HTTP get put post delete requests in header -> Server uses Apache tomcat/express 
+server to hadle requests -> sends JSON/XML of status code!200,404,501, cache-control, content-type, cookies, compression -> browser displays
+
+DNS(Domain Name System) is a database that maintains the name of the website (URL) and the particular IP address it links to.
+In order to find the DNS record, the browser checks four caches.
+
+? First, it checks the browser cache. The browser maintains a repository of DNS records for a fixed duration for websites you have previously visited. So, it is 
+the first place to run a DNS query.
+
+? Second, the browser checks the OS cache. If it is not found in the browser cache, the browser would make a system call (i.e. gethostname on Windows) to your 
+underlying computer OS to fetch the record since the OS also maintains a cache of DNS records.
+
+? Third, it checks the router cache. If it’s not found on your computer, the browser would communicate with the router that maintains its’ own cache of DNS records.
+
+? Fourth, it checks the ISP cache. If all steps fail, the browser would move on to the ISP. Your ISP maintains its’ own DNS server which includes a cache of DNS 
+records which the browser would check with the last hope of finding your requested URL.
+
+3. If the requested URL is not in the cache, ISP’s DNS server initiates a DNS query to find the IP address of the server that hosts maps.google.com.
+As mentioned earlier, in order for my computer to connect with the server that hosts maps.google.com, I need the IP address of maps.google.com. The purpose of a 
+DNS query is to search multiple DNS servers on the internet until it finds the correct IP address for the website. This type of search is called a recursive 
+search since the search will continue repeatedly from DNS server to DNS server until it either finds the IP address we need or returns an error response saying 
+it was unable to find it.
+In this situation, we would call the ISP’s DNS server a DNS recursor whose responsibility is to find the proper IP address of the intended domain name by 
+asking other DNS servers on the internet for an answer. 
+
+READ : https://medium.com/@maneesha.wijesinghe1/what-happens-when-you-type-an-url-in-the-browser-and-press-enter-bb0aa2449c1a
+i was confused what does amazon's aws route 53 do and why i have to pay 0.5 dollars just for DNS resolution every month
+
+4. Browser initiates a TCP connection with the server.
+Once the browser receives the correct IP address it will build a connection with the server that matches IP address to transfer information. Browsers use 
+protocols to build such connections. There are a number of different internet protocols which can be used but TCP is the most common protocol used for any type 
+of HTTP request.
+
+In order to transfer data packets between your computer(client) and the server, it is important to have a TCP connection established. This connection is established 
+using a process called the TCP/IP three-way handshake. This is a three step process where the client and the server exchange SYN(synchronize) and ACK(acknowledge) 
+messages to establish a connection.
+
+1. Client machine sends a SYN packet to the server over the internet asking if it is open for new connections.
+
+2. If the server has open ports that can accept and initiate new connections, it’ll respond with an ACKnowledgment of the SYN packet using a SYN/ACK packet.
+
+3. The client will receive the SYN/ACK packet from the server and will acknowledge it by sending an ACK packet.
+
+Then a TCP connection is established for data transmission!
+
+-------------------------------------- SESSION AND COOKIES -------------------------------------------
+Sessions and cookies
+We usually tells that HTTP is stateless. What does this mean?
+Stateless means, server does not know about your past request. All requests by your browser are considered as a new one.
+Session is the period of time that a user spends on a web site. So we can think session as a time interval between login 
+and logout. This session is maintained because of cookies. There are different types of cookies. The cookies used for session management is called session cookie.
+
+in the very first request to the server from a browser, the HTTP request will not have a cookie value. So server will set a new cookie for that browser session 
+and sends it back with the response. So the browser will store the cookie for that domain.
+
+Flow of session management using cookies.
+
+Browser sends a new login request R1 to the Facebook server.
+Then facebook will check whether there is any cookie is sent by the browser.
+Since this is the new request, there will be no cookie value in the database.
+So Facebook will send a cookie to your browser and Facebook will store its ID.
+Then the browser will set that cookie for that Facebook domain.
+With the each request for Facebook domain, your browser should send the cookie in the HTTP header.
+Then Facebook will check whether it has the ID sent by the browser. If that exists, then facebook will use the session indicated by the cookie.
+
+The first option is expires, which indicates when the cookie should no longer be sent to the server and therefore may be deleted by the browser. Without the 
+expires option, a cookie has a lifespan of a single session. A session is defined as finished when the browser is shut down, so session cookies exist only while 
+the browser remains open. This is why you’ll often see a checkbox when signing into a web application asking if you would like your login information to be saved: 
+if you select yes, then an expires option is attached to the login cookie. If the expires option is set to a date that appears in the past, then the cookie is 
+immediately deleted.
+
+
+----------------------------------------- REACT: DOM VS VIRTUAL DOM  -------------------------------------------
+
+DOM can be thought of an instance of a class having lots of properties to change functions of nodes
+http://reactkungfu.com/2015/10/the-difference-between-virtual-dom-and-dom/
+
+https://www.edureka.co/blog/interview-questions/react-interview-questions/
+
+SYnchronous and this.setState is asynchronous
+
+
+-----------------------------------------  Node.js  ------------------------------------------
+
+
+
+
+
+
+
+

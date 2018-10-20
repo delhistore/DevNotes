@@ -1,0 +1,154 @@
+-------------------------------------- OOPS -------------------------------------------
+
+FOLLOW THIS SERIES: https://www.youtube.com/watch?v=ZvWUHWvueQk&list=PLfVsf4Bjg79DLA5K3GLbIwf3baNVFO2Lq&index=10
+FOLLOW MCQ FROM GFG INHERITANCE AND VIRTUAL FUNCTIONS.
+class example {
+
+private:
+	int a;
+public:
+	example() {cout<<"constructor called";}
+	~example() {cout<<"destructor called";}
+
+	string name = "ye theek hai";
+	static int sameCopy;
+
+	void display() { cout<<"printing"<<name};
+	void declare();
+
+	friend void access(example e);  // friend function declared
+	friend class accessClass;  // friend class declared
+};
+
+string example::name = "asdf"; // you cannot use scope resolution operator to initialise a variable outside class, only static members can be init by :: outside class
+int example::sameCopy = 0;  // this is okay
+
+void example::declare() {
+	cout<<"some more operations";
+}
+
+void access(example e) {
+	cour<<e.a<<e.name;
+}
+
+class child : public/private/protected example {
+public:
+	
+};
+
+int main() {
+	
+	example e;
+	e.name = "zxc";
+	e.display();
+
+	example *e;
+	e = new example();  // destructor wont be called yet. use delete to destroy this object and call destructor 
+	delete e; // now destructor is called
+	
+	return 0;
+}
+
+an object is a variable of class, instance of a class.
+
+Private members cannot be accessed or inherited, protected cannot be accessed from outside calss but can be inherited, public both
+
+What variables or funcntions defined in public can be accessed from outside the class from anywhere in program from main too but the private members.
+Only public methods can access private members.
+
+Constructors are called as soon as we create a class object. It should always be defined in public. Contructors can be overloaded.
+Destructors are called as soon as the scope of object is finished.
+
+---------------------------------
+STATIC: this keyword if used in a class or simply in a function then all objects or all function calls would share the same copy of function or variable declared 
+as static. values of these variables is stored in heap. it is somewhat same as defining a global variable.
+
+void exam() {
+	static int counter; cout<<counter++;
+}
+int main() {
+	exam();exam();exam();exam();  //every time counter will be increased
+	return 0;
+}
+output:1234
+
+Static methods defined within classes: shared by all objects, only static variables can be used inside static members.
+
+-----------------------------------
+Friend function: private and protected members can be accessed by the members of same class only. if you want other to access them outside the class, then
+make that function a friend of previous class.
+Friend class: can access all the member functions and data members of the class to which it is a friend.
+
+-----------------------------------
+Inheritance: All the member funcitons and data members of
+visibility mode: from(parent) to (child)
+	public: from protected to protected, from public to public
+	protected: from protected, public to protected
+	private: (default) from protected, public to private
+
+Child class inherits all the dm and mf of parent class except constructors, destructors, overloaded operators, friend functions.
+
+-------------------------------------
+THIS pointer: only member functions of class have this pointer, not friend function. points to the current object.
+
+int a;
+example(int a ) { a = a;} // will produce garbage value;
+example(int a ) { this->a = a;}  //correct way
+
+------------------------------------
+POLYMORPHISM: many forms in greeks. functions with same name having different behaviour based on types and numbers of arguments passed;
+
+------------------------------------
+Virtual Functions:
+if anytime a method of base class is overwritten by a child class method with same name, then always base class method gets executed. if we declare the
+base class method as virtual then child class method will be executed. virtual void show() {cout<<"showing";}..
+
+Pure Virtual Functions:
+The main difference between ‘virtual function’ and ‘pure virtual function’ is that ‘virtual function’ has its definition in the base class and also the 
+inheriting derived classes redefine it. The pure virtual function has no definition in the base class, and all the inheriting derived classes has to redefine it.
+virtual void show() = 0; in abstract class. define it in derived classes,
+
+-------------------------------------
+ABSTRACT classes:
+classes which contain one or more pure virtual functions. when we have an abstract class we cannot create an object of it because that object if 
+tries to access the pure virtual function without definition in it then it makes no sense. It is just used to set a foundation like setting schema of database
+for websites use game coding example.
+
+------------------------------------
+Virtual Inheritance:
+In casse of multiple inheritance whena child class derives same copy of methods from multiple classes then error occurs. therefore declare multiple parent
+classes as virtual to avoid it. 
+class liger: virtual public tiger, virtual public lion {};
+
+------------------------------------
+Final keyword:
+-variable : value of a final variable cannot be modified
+-method : final method cannot be overridden
+-class : final class cannot be inherited
+
+-----------------------------------
+Stack and a Heap Memory:
+Stack is used for static memory allocation(variables and functinos) and Heap for dynamic memory allocation(whenever new object are created), 
+both stored in the computer's RAM .
+
+----------------------------------
+Java doesnt support multiple inheritance. to use multiple inheritance use an interface.
+
+
+
+-------------------------------------- Language based questions ---------------------------------
+
+C++ was developed by Bjarne Stroustrup starting in 1979 at Bell Labs, C with Classes but later it was renamed C++ in 1983
+
+
+
+
+
+
+
+
+
+
+
+
+

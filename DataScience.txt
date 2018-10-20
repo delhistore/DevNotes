@@ -102,11 +102,12 @@ are homogeneous(Equal variances across samples is called homogeneity of variance
 B. Nonparametric tests do not rely on any distribution. They can thus be applied even if parametric conditions of validity are not met.
 Parametric tests often have nonparametric equivalents.
 
-A.1 T-test- works good for only small sample size(<30), also called student t test. The t-test can be used, for example, to determine if two sets of data are significantly 
-different from each other. ie. used to determine if samples from two population are significantly fdifferent and if the difference will remain in future tests too.
+A.1 T-test- works good for only small sample size(<30), also called student t test. The t-test can be used, for example, to determine if two sets of data are 
+significantly different from each other. ie. used to determine if samples from two population are significantly fdifferent and if the difference will remain in 
+future tests too.
 ie (X - µ) / s/(n^1/2)
 where X is the sample mean from a sample X1, X2, …, Xn, of size n, s is the standard error of the mean, s is the population standard deviation of the data, and 
-µ is the population mean. if the value is higher than critical value from the table then there is significant difference. It is different for different dataset.
+µ is the population mean. if the value is higher than critical value from the table then there is significant difference. Reject null hypothesis.
 
 A.2 Z-test: A Z-test is any statistical test for which the distribution of the test statistic under the null hypothesis can be approximated by a normal distribution. 
 Because of the central limit theorem, many test statistics are approximately normally distributed for large samples. For each significance level, the Z-test has a 
@@ -123,13 +124,20 @@ where F is the standard normal cumulative distribution function.
 Z-Test : gives the number of std deviations that is observation is away from mean. 68% of observation have z=1, 97.7% have z=2, 99% have z=3. [x-mean / sigma]
 95% = 1.96
 
-F-test
-An F-test is any statistical test in which the test statistic has an F-distribution under the null hypothesis. It is most often used when comparing statistical 
-models that have been fitted to a data set, in order to identify the model that best fits the population from which the data were sampled. Exact "F-tests" mainly 
-arise when the models have been fitted to the data using least squares. The name was coined by George W. Snedecor, in honour of Sir Ronald A. Fisher. Fisher
-initially developed the statistic as the variance ratio in the 1920s.
+A.3 F-test
+Tests differences between two population variances ie two samples taken from a population has equal variances or not if not then the population has varying variances.
+It is most often used when comparing statistical models that have been fitted to a data set, in order to identify the model that best fits the population from which 
+the data were sampled.
+Common examples of the use of F-tests include the study of the following cases:
+-> The hypothesis that the means of a given set of normally distributed populations, all having the same standard deviation, are equal. This is perhaps the best-known 
+F-test, and plays an important role in the analysis of variance (ANOVA).
+F score = get the value of var1 > var2 then (var1 ^ 2 / var2 ^ 2) get the critical score from table then if f score is less than critical score then there is no 
+difference between the two sample variances.
 
 Chi-Square
+It is used to find out that if the variation in data is just due to chance or due to one of the variables present.
+eg if im flipping a coin i get 62 heads and 38 tails. is it just due to chance or something wrong in my flipping way.
+DEGREE OF FREEDOM = number of outcomes - 1 ie for above case its 2-1
 It is an algorithm to find out the statistical significance between the differences between sub-nodes and parent node. We measure it by sum of squares of 
 standardized differences between observed and expected frequencies of target variable.
 
@@ -137,13 +145,28 @@ It works with categorical target variable “Success” or “Failure”.
 It can perform two or more splits.
 Higher the value of Chi-Square higher the statistical significance of differences between sub-node and Parent node.
 Chi-Square of each node is calculated using formula,
-Chi-square = ((Actual – Expected)^2 / Expected)^1/2
+Chi-square = ((observed – Expected)^2 / Expected)^1/2
+get this value get critical value from table with help of degree of freedom and pvalue if chi square is less than critical then accept NULL HYPOTHESIS
+ie there is no statiscal difference between observed and expected
+
+A.4 ANOVA:
+Extended form of t test, if number of groups of samples being verified is 2 then t test can be used if >2 then use Anova
 
 
 -------------------------------------------------------
 STATIONARY AND NON STATIONARY PROCESSES:
 if a time series has varying mean variance and covariance over time then we say it non stationary otherwise stationary. We need to convert non stationary process
 to stationary to be able to predict something.
+Make a time series stationary by:
+1. Differencing, double differencing, triple...
+2. Taking log transforms
+
+SMOOTHING: measure R2 for all a high variable might indicate depence. Or better way is to calculate VIF = 1 / 1-R2 if >5 then dont include that variable in multiple regression.
+For smoothing use rolling mean
+REMOVING TREND: Linear trend: Suppose
+µt = a + ßt
+We seek to estimate a and ß in order to analyze
+Yt = Xt - a - ßt.
 
 Variance inflation factor to detect multicollinearity:
 In statistics, multicollinearity (also collinearity) is a phenomenon in which one predictor variable in a multiple regression model can be linearly predicted 

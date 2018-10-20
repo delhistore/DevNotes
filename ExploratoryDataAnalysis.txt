@@ -29,6 +29,19 @@ It is evident that irrespective of Pclass, Women were given first priority while
 Looks like Pclass is also an important feature. Lets analyse other features.
 -----------------------------------------------------------
 
+STATIONARY AND NON STATIONARY PROCESSES:
+if a time series has varying mean variance and covariance over time then we say it non stationary otherwise stationary. We need to convert non stationary process
+to stationary to be able to predict something.
+
+Variance inflation factor to detect multicollinearity:
+In statistics, multicollinearity (also collinearity) is a phenomenon in which one predictor variable in a multiple regression model can be linearly predicted 
+from the others with a substantial degree of accuracy.
+Methods:
+1. Check the correlation table but its just bivariate
+2. for multivariate, run auxiliary regressions ie try to predict first independent variable with the help of all others then second with elp of all others and so on
+measure R2 for all a high variable might indicate depence. Or better way is to calculate VIF = 1 / 1-R2 if >5 then dont include that variable in multiple regression.
+For smoothing use rolling mean
+
 But the problem is, there were many people with many different ages. We just cant assign a 4 year kid with the mean age that is 29 years. Is there any way to 
 find out what age-band does the passenger lie??
 Bingo!!!!, we can check the Name feature. Looking upon the feature, we can see that the names have a salutation like Mr or Mrs. Thus we can assign the mean 
