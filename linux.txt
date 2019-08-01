@@ -1,0 +1,2 @@
+
+PS1 in bashrc is what gets printed on terminal before $

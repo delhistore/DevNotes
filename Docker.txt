@@ -1,0 +1,7 @@
+
+---------Docker concepts----------------
+
+The use of Linux containers to deploy applications is called containerization. 
+A container is launched by running an image. An image is an executable package that includes everything needed to run an application--the code, a runtime, libraries, environment variables, and configuration files.
+A container runs natively on Linux and shares the kernel of the host machine with other containers. It runs a discrete process, taking no more memory than any other executable, making it lightweight.
+

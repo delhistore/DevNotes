@@ -104,7 +104,7 @@ if anytime a method of base class is overwritten by a child class method with sa
 base class method as virtual then child class method will be executed. virtual void show() {cout<<"showing";}..
 
 Pure Virtual Functions:
-The main difference between ‘virtual function’ and ‘pure virtual function’ is that ‘virtual function’ has its definition in the base class and also the 
+The main difference between â€˜virtual functionâ€™ and â€˜pure virtual functionâ€™ is that â€˜virtual functionâ€™ has its definition in the base class and also the 
 inheriting derived classes redefine it. The pure virtual function has no definition in the base class, and all the inheriting derived classes has to redefine it.
 virtual void show() = 0; in abstract class. define it in derived classes,
 
@@ -139,6 +139,17 @@ Java doesnt support multiple inheritance. to use multiple inheritance use an int
 -------------------------------------- Language based questions ---------------------------------
 
 C++ was developed by Bjarne Stroustrup starting in 1979 at Bell Labs, C with Classes but later it was renamed C++ in 1983
+
+
+------------------- Java ------------------------
+
+final keyword:
+1. final variable becomes constant
+2. final method cant be overidden
+3. final class cannot be inherited
+
+
+Abhi code padha maine mil gaya mujhe kyun aayi thi dikkat. Ek bug file hua tha (MNV-16797) jisme labels load nhi hote the edit modal ke khulne pe, usko shuru me populate krne ke liye maine ng-init pe changeDocumentType chala diya tha kyunki i was expecting uske andar ki location list to same hi ayegi document type ke basis pe. Aur location phle to test ho chuka tha but jab MNV-16797 resolve hua to kisi patient ke sath location linked nhi tha tabhi test nhi ho paya. 
 
 
 

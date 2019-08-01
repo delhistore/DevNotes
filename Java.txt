@@ -1,0 +1,42 @@
+
+----------CONCEPTS---------------
+What is the difference between an object-oriented programming language and object-based programming language?
+Object-based programming language follows all the features of OOPs except Inheritance. JavaScript and VBScript are examples of object-based programming languages.
+
+--------Multi-Threading-------------
+try catch finally blocks
+try {
+	//check for exceptions
+}
+catch {
+	//runs in case of exceptions
+}
+finally {
+	//runs even after exception occurs in the very end
+}
+
+-------------Heap vs Stack Memory Allocation--------------
+Comparison Chart: https://www.geeksforgeeks.org/stack-vs-heap-memory-allocation/
+
+--------------Collection Framework--------------
+
+interfaces (Set, List, Queue, Deque) and classes (ArrayList, Vector, LinkedList, PriorityQueue, HashSet, LinkedHashSet, TreeSet)
+
+What is Collection framework?
+The Collection framework represents a unified architecture for storing and manipulating a group of objects. It has:
+
+Interfaces and its implementations, i.e., classes
+Algorithm
+
+----------------Package and classes----------------
+
+package com.mphrx.widget
+
+class CustomWidgetHelper {
+	//Code
+}
+
+=>
+
+import com.mphrx.widget.CustomWidgetHelper
+

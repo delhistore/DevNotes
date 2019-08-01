@@ -1,0 +1,19 @@
+
+-----------insert vs save-----------------
+
+To insert the document you can use db.post.save(document) also. If you don't specify _id in the document then save() method will work same as insert() method. If you specify _id then it will replace whole data of document containing _id as specified in save() method.
+
+
+-----------Mongo Dump from Server-----------------
+
+mongodump --host 10.18.2.76 --port 27018 --username cauat_minerva --password cauat_minerva  --excludeCollection auditTrail --excludeCollection authenticationToken --db ca_mergedb --out /home/tathagat/Desktop/Learning/stories/Dependent\ linking/
+
+-----------Create a backup of collection-------------
+
+db.user.copyTo('userBackup')
+
+-----------Copy collection form server---------------
+
+mongoexport -u cauat_minerva -p cauat_minerva --host 10.18.2.76 --port 27018 --db ca_mergedb --collection user --out user.json
+
+mongoimport --host 127.0.0.1 --port 27017 --db dev_consus --collection user --file user.json
