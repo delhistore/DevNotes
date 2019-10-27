@@ -1,0 +1,84 @@
+
+Things to do:
+=> BOOK: Chapter 1 all definitions
+=> BOOK: Mean Median Mode Skewness Kurtosis chapter 3
+=> Mean median mode questions: https://statistics.laerd.com/statistical-guides/measures-central-tendency-mean-mode-median-faqs.php
+=> Class notes (Discrete prob)
+=> Revise previous class notes
+=> Question papers 
+
+----------------------------
+
+Class Notes:
+
+
+----------------------------
+Chapter-4 :
+
+Terms:
+probability
+experiment
+sample space
+experimental outcomes
+sample space outcomes
+
+
+The Addition Rule
+Mutually Exclusive Events
+
+Conditional probability: The probability of the event A, given the condition that the event B has occurred, is written
+as P(A | B)—pronounced “the probability of A given B.” We often refer to such a probability as
+the conditional probability of A given B.
+
+
+
+Formulas:
+
+
+
+----------------------------
+
+CHAPTER: 4 - Discrete Random Variables
+
+A random variable is a variable that assumes numerical values that are determined by the
+outcome of an experiment, where one and only one numerical value is assigned to each experi-
+mental outcome.
+
+Some other examples of continuous random variables are
+1 The temperature (in degrees Fahrenheit) of a cup of coffee served at a McDonald’s restaurant.
+2 The weight (in ounces) of strawberry preserves dispensed by an automatic filling machine
+into a 16-ounce jar.
+3 The time (in minutes) that a customer in a store must wait to receive a credit card authorization.
+4 The interest rate (in percent) charged for mortgage loans at a bank.
+
+CONCEPTS
+LO5-2 Find a
+discrete
+probability distribu-
+tion and compute
+its mean and
+standard deviation.
+5.1 Explain the concept of a random variable.
+5.2 Explain how the values of a discrete random variable differ from the values of a continuous random
+variable.
+5.3 Classify each of the following random variables as discrete or continuous:
+a x  the number of girls born to a couple who will have three children.
+b x  the number of defects found on an automobile at final inspection.
+c x  the weight (in ounces) of the sandwich meat placed on a submarine sandwich.
+d x  the number of incorrect lab procedures conducted at a hospital during a particular week.
+e x  the number of customers served during a given day at a drive-through window.
+f x  the time needed by a clerk to complete a task.
+g x  the temperature of a pizza oven at a particular time.
+
+The probability distribution of a discrete random variable is a table, graph, or formula that
+gives the probability associated with each possible value that the random variable can assume. We denote the probability distribution of the discrete random variable x as p(x).
+
+In general, a discrete probability distribution p(x) must satisfy two conditions:
+Properties of a Discrete Probability Distribution p(x)
+A discrete probability distribution p(x) must be such that
+1. 0 <= p(x) <= 1 
+2. Summation of all p(x) = 1
+
+The Mean, or Expected Value, of a Discrete Random Variable x is
+Mu(x) = summation Xi.p(x)
+When we calculate the expected value Mu(x) we mean that in the long run it is expected Discrete Random Variable X will take value Mu(x) during future events. 

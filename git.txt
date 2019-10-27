@@ -1,3 +1,45 @@
+
+-------------------------------
+
+all commits are identified by SHA1 hash - 22ec1231acce323423cae
+First 5 or 6 characters are enough to identify the hash uniquely 
+
+error: short SHA1 6da9 is ambiguous.
+error: short SHA1 6da9 is ambiguous.
+fatal: ambiguous argument '6da9': unknown revision or path not in the working tree.
+Use '--' to separate paths from revisions, like this:
+'git <command> [<revision>...] -- [<file>...]
+
+-------------------------------
+
+listing your username and email: git config -l
+Setting your username and email: git config --global user.name <name>, git config --global user.email <email>
+This username and email will go forward with each of your commits 
+git config --global --edit : opens global config file in a text editor
+
+-------------------------------
+
+Useful commands:
+
+1. git prune
+{https://www.atlassian.com/git/tutorials/git-prune}:
+The git prune command is an internal housekeeping utility that cleans up unreachable or "orphaned" Git objects. Unreachable objects are those that are inaccessible by any refs. Any commit that cannot be accessed through a branch or tag is considered unreachable. git prune is generally not executed directly. Prune is considered a garbage collection command and is a child command of the git gc command. Happens in case of dettached head and git reset --hard to a previous commit.
+
+2. git revert <commit>
+Create new commit that undoes all of the changes made in
+<commit> , then apply it to the current branch.
+
+3. git commit --ammend
+Replace the last commit with the staged changes and last commit
+combined. Use with nothing staged to edit the last commit’s message.
+
+4. git remote add <name> <url>:
+Create a new connection to a remote repo. After adding a remote,
+you can use <name> as a shortcut for <url> in other commands.
+
+
+https://try.github.io/
+
 How can I delete branches in Git?
 
 Before we look at deleting remote branches, let's discuss the syntax for deleting a local branch in Git.

@@ -40,3 +40,43 @@ class CustomWidgetHelper {
 
 import com.mphrx.widget.CustomWidgetHelper
 
+---------------Static import-----------
+
+Static import in Java
+In Java, static import concept is introduced in 1.5 version. With the help of static import, we can access the static members of a class directly without class name or any object. For Example: we always use sqrt() method of Math class by using Math class i.e. Math.sqrt(), but by using static import we can access sqrt() method directly.
+According to SUN microSystem, it will improve the code readability and enhance coding. But according to the programming experts, it will lead to confusion and not good for programming. If there is no specific requirement then we should not go for static import.	
+
+--------------POJO vs BEAN------------
+
+POJO vs Java Bean: https://www.geeksforgeeks.org/pojo-vs-java-beans/
+
+POJO	JAVA BEAN
+It doesn’t have special restrictions other than those forced by Java language.	It is a special POJO which have some restrictions.
+It doesn’t provide much control on members.	It provides complete control on members.
+It can implement Serializable interface.	It should implement serializable interface.
+Fields can be accessed by their names.	Fields are accessed only by getters and setters.
+Fields can have any visiblity.	Fields have only private visiblity.
+There can be a no-arg constructor.	It must have a no-arg constructor.
+It is used when you don’t want to give restriction on your members and give user complete access of your entity	It is used when you want to provide user your entity but only some part of your entity.
+
+POJO classes
+
+POJO stands for Plain Old Java Object. It is an ordinary Java object, not bound by any special restriction other than those forced by the Java Language Specification and not requiring any class path. POJOs are used for increasing the readability and re-usability of a program. POJOs have gained most acceptance because they are easy to write and understand. They were introduced in EJB 3.0 by Sun microsystems.
+
+A POJO should not:
+
+Extend prespecified classes, Ex: public class GFG extends javax.servlet.http.HttpServlet { … } is not a POJO class.
+Implement prespecified interfaces, Ex: public class Bar implements javax.ejb.EntityBean { … } is not a POJO class.
+Contain prespecified annotations, Ex: @javax.persistence.Entity public class Baz { … } is not a POJO class.
+
+Java Beans
+
+Beans are special type of Pojos. There are some restrictions on POJO to be a bean.
+
+All JavaBeans are POJOs but not all POJOs are JavaBeans.
+Serializable i.e. they should implement Serializable interface. Still some POJOs who don’t implement Serializable interface are called POJOs beacause Serializable is a marker interface and therefore not of much burden.
+Fields should be private. This is to provide the complete control on fields.
+Fields should have getters or setters or both.
+A no-arg constructor should be there in a bean.
+Fields are accessed only by constructor or getter setters.
+Getters and Setters have some special names depending on field name. For example, if field name is someProperty then its getter preferably will be:

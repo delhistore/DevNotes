@@ -1,0 +1,374 @@
+
+----------------MIGRATION TO CONSENT DB--------------------
+
+
+-----------------------------------------
+
+SCRIPT: 
+
+var users = db.user.find().limit(20);
+
+// creating new collections consent and consent.next_id
+db.createCollection("consent")
+db.createCollection("consent.next_id")
+db.consent.next_id.insertOne({
+    "_id" : "consent",
+    "next_id" : 0.0
+})
+
+while ( users.hasNext() ) {
+    var user = users.next()
+    print('-----------------')
+    print("Making consents for user:", user._id)
+    printjson(user.linkedDependentPatient)
+
+    // iterating over all keys(patientIds) of linkedDependentPatient
+    for(var linkedPatientId in user.linkedDependentPatient){
+        if(user.linkedDependentPatient.hasOwnProperty(linkedPatientId)) {
+
+            var linkedPatientIdObject = user.linkedDependentPatient[linkedPatientId]
+
+            // skeleton structure of consent to be created
+            var tempConsent =
+            {
+                "_id" : NumberLong(0),
+                "action" : {
+                    "coding" : [ 
+                        {
+                            "code" : {
+                                "value" : "Access"
+                            },
+                            "display" : {
+                                "value" : "Access"
+                            }
+                        }
+                    ],
+                    "text" : {
+                        "value" : "Access"
+                    }
+                },
+                "actor" : [ 
+                    {
+                        "actorUser" : NumberLong(0),
+                        "type" : [ 
+                            {
+                                "text" : {
+                                    "value" : "author"
+                                }
+                            }
+                        ]
+                    }, 
+                    {
+                        "actorUser" : NumberLong(0),
+                        "type" : [ 
+                            {
+                                "text" : {
+                                    "value" : "grantee"
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "consentType" : {
+                    "value" : "DependentLinking"
+                },
+                "extension" : [ 
+                    {
+                        "url" : "SearchTag",
+                        "value" : [ 
+                            {
+                                "relationship" : "Significant Other"
+                            }
+                        ]
+                    }
+                ],
+                "globalVisible" : true,
+                "markToBeDeleted" : false,
+                "purpose" : [ 
+                    {
+                        "code" : {
+                            "value" : "PATADMIN"
+                        },
+                        "display" : {
+                            "value" : "patient administration"
+                        },
+                        "system" : {
+                            "value" : "MPHRX"
+                        }
+                    }
+                ],
+                "status" : {
+                    "value" : "inactive"
+                },
+                "identifier" : [ 
+                    {
+                        "system" : {
+                            "value" : "system"
+                        },
+                        "type" : {
+                            "text" : {
+                                "value" : "type"
+                            }
+                        },
+                        "useCode" : {
+                            "value" : "useCode"
+                        },
+                        "value" : {
+                            "value" : "201908160617576789949Td6"
+                        }
+                    }
+                ],
+                "version" : NumberLong(0),
+                "visible" : true
+            }
+
+            // editing tempConsent values
+
+            // editing _id
+            var _id = parseInt(db.consent.next_id.find({}).next().next_id + 1)
+            if(_id)  tempConsent._id = _id
+            else {
+                print("_id cannot be determined!!!")
+            } 
+
+            // editing action key (assuming we will always find user._id)
+            tempConsent.actor[0].actorUser = user._id
+            tempConsent.actor[1].actorUser = user._id
+
+            // creating lastUpdated, dateCreated and dateTimevalue
+            if(linkedPatientIdObject.hasOwnProperty("accessRequestedOn") && linkedPatientIdObject.accessRequestedOn!="" && linkedPatientIdObject.accessRequestedOn!=null ) {
+                tempConsent.dateCreated = linkedPatientIdObject.accessRequestedOn
+                tempConsent.dateTime = {}
+                tempConsent.dateTime.value = linkedPatientIdObject.accessRequestedOn
+                tempConsent.lastUpdated = linkedPatientIdObject.accessRequestedOn
+            }
+            else  print("accessRequestedOn not found. Cannot create lastUpdated, dateCreated and dateTimevalue.")
+            
+            // editing extension
+            if(linkedPatientIdObject.hasOwnProperty("relationship") && linkedPatientIdObject.relationship!="" && linkedPatientIdObject.relationship!=null ) {
+                tempConsent.extension[0].value[0].relationship = linkedPatientIdObject.relationship
+            }
+            else  print("relationship not found. relationship created will be 'Significant Other'.")
+
+            // editing identifier (DOUBT: how to sort generate random string for identifier value array using config)
+            tempConsent.identifier[0].value.value =  Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+
+            // editing patient 
+            tempConsent.patient = parseInt(linkedPatientId)
+
+            // editing status 
+            tempConsent,status = {}
+            if(linkedPatientIdObject.accessRequestDetermination === "GRANTED") {
+                tempConsent.status.value = "active"
+                
+                tempConsent.period = { "startDate": { "value": "" } } 
+                // editing period (setting it to accessRequestStart, otherwise accessRequestedOn)
+                if(linkedPatientIdObject.hasOwnProperty("accessRequestStart") && linkedPatientIdObject.accessRequestStart!=""  && linkedPatientIdObject.accessRequestStart!=null) {
+                    tempConsent.period.startDate.value = linkedPatientIdObject.accessRequestStart
+                } 
+                else if(linkedPatientIdObject.hasOwnProperty("accessRequestedOn") && linkedPatientIdObject.accessRequestedOn!="" && linkedPatientIdObject.accessRequestedOn!=null) {
+                    tempConsent.period.startDate.value = linkedPatientIdObject.accessRequestedOn
+                }
+                else  print("No accessRequestStart or accessRequestedOn found. Period.startDate.value for current consent  will be empty string for status active!")
+            }
+            else if(linkedPatientIdObject.accessRequestDetermination === "PENDING") {
+                tempConsent.status.value = "pendingOTP"
+            }
+            else {
+                print("accessRequestDetermination not identified. status.value will be inactive!")
+            }
+            
+            print('Consent created:')
+            printjson(tempConsent)
+            db.consent.insertOne(tempConsent)                    
+            db.consent.next_id.update({_id:"consent"},{"next_id": tempConsent._id})
+        }
+    }       
+    print('-----------------')
+}
+
+
+
+
+-----------------------------------------
+
+Demo consent collection:
+
+{
+    "_id" : NumberLong(99),
+    "action" : {
+        "coding" : [ 
+            {
+                "code" : {
+                    "value" : "Access"
+                },
+                "display" : {
+                    "value" : "Access"
+                }
+            }
+        ],
+        "text" : {
+            "value" : "Access"
+        }
+    },
+    "actor" : [ 
+        {
+            "actorUser" : NumberLong(32552),
+            "type" : [ 
+                {
+                    "text" : {
+                        "value" : "author"
+                    }
+                }
+            ]
+        }, 
+        {
+            "actorUser" : NumberLong(32552),
+            "type" : [ 
+                {
+                    "text" : {
+                        "value" : "grantee"
+                    }
+                }
+            ]
+        }
+    ],
+    "consentType" : {
+        "value" : "DependentLinking"
+    },
+    "dateCreated" : ISODate("2019-08-16T12:47:57.684Z"),
+    "dateTime" : {
+        "value" : ISODate("2019-08-16T12:47:57.678Z")
+    },
+    "extension" : [ 
+        {
+            "url" : "SearchTag",
+            "value" : [ 
+                {
+                    "relationship" : "Guardian of Adult Child"
+                }
+            ]
+        }
+    ],
+    "globalVisible" : true,
+    "identifier" : [ 
+        {
+            "system" : {
+                "value" : "system"
+            },
+            "type" : {
+                "text" : {
+                    "value" : "type"
+                }
+            },
+            "useCode" : {
+                "value" : "useCode"
+            },
+            "value" : {
+                "value" : "201908160617576789949Td6"
+            }
+        }
+    ],
+    "lastUpdated" : ISODate("2019-08-16T16:48:27.811Z"),
+    "markToBeDeleted" : false,
+    "patient" : NumberLong(180),
+    "purpose" : [ 
+        {
+            "code" : {
+                "value" : "PATADMIN"
+            },
+            "display" : {
+                "value" : "patient administration"
+            },
+            "system" : {
+                "value" : "MPHRX"
+            }
+        }
+    ],
+    "status" : {
+        "value" : "inactive"
+    },
+    "version" : NumberLong(0),
+    "visible" : true,
+    "period" : {
+        "startDate" : {
+            "value" : ISODate("2019-08-16T12:48:30.733Z")
+        }
+    }
+}
+
+
+-----------------------------------
+
+sample linkedDependentPatient keys from user collection
+
+"linkedDependentPatient" : {
+        "180" : {
+            "accessRequestedOn" : ISODate("2019-07-05T11:23:36.323Z"),
+            "relationship" : "Guardian of Adult Child",
+            "accessRequestDetermination" : "GRANTED",
+            "accessRequestDeterminationBy" : "USER",
+            "accessRequestReason" : "",
+            "accessRequestStart" : null,
+            "accessRequestEnd" : null
+        }
+    }
+
+"linkedDependentPatient" : {
+        "2174" : {
+            "accessRequestedOn" : ISODate("2019-08-20T08:08:50.426Z"),
+            "relationship" : "Self",
+            "accessRequestDetermination" : "PENDING",
+            "accessRequestDeterminationBy" : "USER",
+            "accessRequestReason" : "",
+            "accessRequestStart" : null,
+            "accessRequestEnd" : null
+        },
+        "2" : {
+            "accessRequestedOn" : ISODate("2019-08-20T10:42:41.315Z"),
+            "relationship" : "Self",
+            "accessRequestDetermination" : "PENDING",
+            "accessRequestDeterminationBy" : "USER",
+            "accessRequestReason" : "",
+            "accessRequestStart" : null,
+            "accessRequestEnd" : null
+        },
+        "41" : {
+            "accessRequestedOn" : ISODate("2019-08-20T10:44:02.999Z"),
+            "relationship" : "Brother",
+            "accessRequestDetermination" : "PENDING",
+            "accessRequestDeterminationBy" : "USER",
+            "accessRequestReason" : "",
+            "accessRequestStart" : null,
+            "accessRequestEnd" : null
+        }
+    }
+
+
+
+    "linkedDependentPatient" : {
+        "998952" : {
+            "accessRequestedOn" : ISODate("2018-05-30T20:17:10.036Z"),
+            "relationship" : "SE",
+            "accessRequestDetermination" : "GRANTED",
+            "accessRequestDeterminationBy" : "USER",
+            "accessRequestReason" : "",
+            "accessRequestStart" : null,
+            "accessRequestEnd" : null
+        }
+    }
+
+
+    "linkedDependentPatient" : {
+        "1460211" : {
+            "accessRequestedOn" : ISODate("2018-10-13T03:30:47.626Z"),
+            "relationship" : "SE",
+            "accessRequestDetermination" : "GRANTED",
+            "accessRequestDeterminationBy" : "USER",
+            "accessRequestReason" : "",
+            "accessRequestStart" : null,
+            "accessRequestEnd" : null
+        }
+    }
+
+

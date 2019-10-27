@@ -1,0 +1,19 @@
+
+--------------------------------
+
+Groovy Def Declaration Examples
+May 02, 2015 Groovy, Tutorial 0 comments
+
+When we declare a variable or function in Groovy, we can use the def keyword to define the type. The Groovy Def can be used if we don't want to restrict the type of an object. Hence, we can change what can be assigned to a variable any time during runtime. When we use Groovy def to declare something, it is similar to declaring it as an Object class. Because the class Object is the root class of all classes, you can assign anything to a variable of type Object. Here are some examples on how to use def in Groovy. 
+Groovy Def Variables
+We can NOT do this in Java or Groovy. 
+String myvar = 'Test'
+myvar = 1000
+This will throw a Runtime Exception because the code is trying to assign an integer to a String variable.
+
+We can use def to declare the type of a variable. And we can assign anything to it.
+
+def myvar = 'Test'
+myvar = 1000 This code will not throw Exception. The code above is similar to the one below: 
+Object myvar = 'Test'
+myvar = 1000

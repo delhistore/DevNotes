@@ -17,3 +17,226 @@ db.user.copyTo('userBackup')
 mongoexport -u cauat_minerva -p cauat_minerva --host 10.18.2.76 --port 27018 --db ca_mergedb --collection user --out user.json
 
 mongoimport --host 127.0.0.1 --port 27017 --db dev_consus --collection user --file user.json
+
+
+----------Restoring a mongo dump---------------------
+
+mongorestore -h localhost:27017 -d dev_consus_meeth_qa meethqa_minervadb/
+mongorestore -h host.com:port -d dbname_test -u username -p password dump/dbname/
+
+
+
+
+    Map pendingTaskWidgetConfig ( Map actionMap ) {
+        List<String> userGroupNames = actionMap.get('userGroupNames')
+        Map<String,List<String>> userGroupToSubUserGroupMap = [
+                //"Surgeon Coordinator":["Plastics Clinic","Hand & Wrist Center","Schneider, K","Scuderi & Cushner","MEETH Ophthalmology"]
+                "Surgeon Coordinator":com.mphrx.util.grails.ApplicationContextUtil.getConfig().getCoordinatorUserGroups
+        ];
+
+
+
+        Map widgetConfigWithTaskCategoryMap=[
+                "SURG":[
+                        "taskCategory":['insuranceAuthorization','reviewHpDocuments','uploadConsent','uploadPreOpOrder','uploadPostOpOrder','uploadInterrogationReport','compilePatientChart','reviewPatientChart','reviewLoanersRequest','uploadImplantRequest','confirmPatientDetails','confirmMedication','informPatientOfSurgeryStatus','scheduleSurgery','rescheduleSurgery','schedulePostOpVisit','uploadFemtoTreatmentPlan'],
+                        "taskCategoryLHH":['insuranceAuthorization','reviewHpDocuments','uploadConsent','uploadPreOpOrder','uploadPostOpOrder','uploadInterrogationReport','compilePatientChart','reviewPatientChart','informPatientOfSurgeryStatus','scheduleSurgery','rescheduleSurgery'],
+                        "widgetForSurgeryStatusWithCount":[
+                                "surgeryStatus":["requested","scheduled","rescheduled","cancelled"],
+                                "isCoordinator":true,
+                                "startDate":"today"
+                        ],
+                        "widgetOnTaskCategoryBasis":[                   "taskCategory":['insuranceAuthorization','reviewHpDocuments','uploadConsent','uploadPreOpOrder','uploadPostOpOrder','uploadInterrogationReport','compilePatientChart','reviewPatientChart','reviewLoanersRequest'],
+                                                                        "taskCategoryLHH":['insuranceAuthorization','reviewHpDocuments','uploadConsent','uploadPreOpOrder','uploadPostOpOrder','uploadInterrogationReport','compilePatientChart','reviewPatientChart','scheduleSurgery','rescheduleSurgery','informPatientOfSurgeryStatus'],
+                                                                        "taskCategoryNonPriority":['uploadImplantRequest','confirmPatientDetails','confirmMedication','informPatientOfSurgeryStatus','scheduleSurgery','rescheduleSurgery','schedulePostOpVisit','uploadFemtoTreatmentPlan'],
+                                                                        "startDate":"today"
+                        ]
+                ],
+                "ENGA":[
+                        "taskCategory":['firstContactRequest','confirmCarePartnerInformation','confirmPharmacyDetails','reviewDayOfSurgeryExpection'],
+                        "widgetForSurgeryStatusWithCount":[
+                                "surgeryStatus":["requested","scheduled","rescheduled","cancelled"],
+                                "startDate":"today"
+                        ],
+                        "widgetOnTaskCategoryBasis":[
+                                "taskCategory":['firstContactRequest','confirmCarePartnerInformation','confirmPharmacyDetails','reviewDayOfSurgeryExpection'],
+                                "startDate":"today"
+                        ]
+                ],
+                "PAT":[
+                        "taskCategory":['ackPreOpOrder','ackPostOpOrder','compilePatientChart','reviewPatientChart','uploadConsent'],
+                        "taskCategoryLHH":['ackPreOpOrder','ackPostOpOrder','compilePatientChart','reviewPatientChart','uploadConsent'],
+                        "widgetForSurgeryStatusWithCount":[
+                                "surgeryStatus":["requested","scheduled","rescheduled","cancelled","completed","transferred"],
+                                "startDate":"today"
+                        ],
+                        "widgetForUpcomingTaskCategory":[
+                                "taskCategory":['ackPreOpOrder','ackPostOpOrder','compilePatientChart','reviewPatientChart','uploadConsent'],
+                                "taskCategoryLHH":['ackPreOpOrder','ackPostOpOrder','compilePatientChart','reviewPatientChart','uploadConsent'],
+                                "startDate":"today"
+                        ]
+                ],
+                "ASCU":[
+                        "taskCategory":['completeNursingAssessment','makePreOpCall'],
+                        "widgetForSurgeryStatusWithCount":[
+                                "surgeryStatus":["requested","scheduled","rescheduled","cancelled"],
+                                "startDate":"today"
+                        ],
+                        "widgetOnTaskCategoryBasis":[
+                                "taskCategory":['completeNursingAssessment','makePreOpCall'],
+                                "startDate":"today"
+                        ]
+                ],
+                "ADMT":[
+                        "taskCategory":['reviewSpecialNeedsAndAccomod'],
+                        "widgetForSurgeryStatusWithCount":[
+                                "surgeryStatus":["requested","scheduled","rescheduled","cancelled"],
+                                "startDate":"today"
+                        ],
+                        "widgetOnTaskCategoryBasis":[
+                                "taskCategory":['reviewSpecialNeedsAndAccomod'],
+                                "startDate":"today"
+                        ]
+                ],
+                "STER":[
+                        "taskCategory":['reviewLoanersRequest'],
+                        "widgetForSurgeryStatusWithCount":[
+                                "surgeryStatus":["requested","scheduled","rescheduled","cancelled"],
+                                "startDate":"today"
+                        ],
+                        "widgetOnTaskCategoryBasis":[
+                                "taskCategory":['reviewLoanersRequest'],
+                                "startDate":"today"
+                        ],
+                        "widgetOnTaskStatusBasis":[
+                                "LOANER":[
+                                        "taskCategory" :["reviewLoanersRequest"],
+                                        "taskStatus":["pending","reviewed"],
+                                        "startDate":"today"
+                                ]
+                        ]
+
+                ],
+                "OR":[
+                        "taskCategory":['addOnSelected','uploadPreferenceCard','reconcileSurgery'],
+                        "taskCategoryLHH":['addOnSelected'],
+                        "widgetForSurgeryStatusWithCount":[
+                                "surgeryStatus":["requested","scheduled","rescheduled","cancelled","completed","transferred"],
+                                "startDate":"yesterday"
+                        ],
+                        "widgetOnTaskCategoryBasis":[
+                                "taskCategory":['addOnSelected','uploadPreferenceCard',"reconcileSurgery"],
+                                "taskCategoryLHH":['addOnSelected'],
+                                "startDate":"yesterday"
+                        ]
+                ],
+                "MATE":[
+                        "taskCategory":['uploadImplantRequest'],
+                        "widgetForSurgeryStatusWithCount":[
+                                "surgeryStatus":["requested","scheduled","rescheduled","cancelled"],
+                                "startDate":"today"
+                        ],
+                        "widgetForUpcomingTaskCategory":[
+                                "taskCategory":['uploadImplantRequest'],
+                                "startDate":"today"
+                        ]
+                ],
+                "PHAR":[
+                        "taskCategory":['ackPreOpOrder'],
+                        "widgetForSurgeryStatusWithCount":[
+                                "surgeryStatus":["requested","scheduled","rescheduled","cancelled"],
+                                "startDate":"today"
+                        ],
+                        "widgetForUpcomingTaskCategory":[
+                                "taskCategory":['ackPreOpOrder'],
+                                "startDate":"today"
+                        ]
+                ],
+                "PACU":[
+                        "taskCategory" :['makePostOpCall','reconcileSurgery'],
+                        "widgetOndescendingTaskCategoryBasis":[
+                                "taskCategory" :['makePostOpCall','reconcileSurgery'],
+                                "startDate":"today"
+                        ]
+                ],
+                "BOOK":[
+                        "taskCategory" :['scheduleSurgery','rescheduleSurgery','cancelSurgeryCerner'],
+                        "taskCategoryLHH" :['scheduleSurgery','rescheduleSurgery','cancelSurgeryCerner'],
+                        "widgetForSurgeryStatusWithCount":[
+                                "surgeryStatus":["requested","scheduled","rescheduled","cancelled","completed","transferred"],
+                                "startDate":"yesterday"
+                        ],
+                        "widgetOnTaskStatusBasis":[
+                                "SCHEDULE":[
+                                        "taskCategory" :["scheduleSurgery"],
+                                        "taskCategoryLHH" :["scheduleSurgery"],
+                                        "taskStatus":["pending","registered","scheduled"],
+                                        "startDate":"yesterday"
+                                ],
+                                "RESCHEDULE":[
+                                        "taskCategory" :["rescheduleSurgery"],
+                                        "taskCategoryLHH" :["rescheduleSurgery"],
+                                        "taskStatus":["pending","rescheduleInInvision","rescheduleInCerner"],
+                                        "startDate":"yesterday"
+                                ],
+                                "CANCEL":[
+                                        "taskCategory" :["cancelSurgeryCerner"],
+                                        "taskCategoryLHH" :["cancelSurgeryCerner"],
+                                        "taskStatus":["pending","cancelOnCerner"],
+                                        "startDate":"yesterday"
+                                ]
+                        ]
+                ],
+                "FIN":[
+                        "widgetForSurgeryStatusWithCount":[
+                                "surgeryStatus":["requested","scheduled","rescheduled","cancelled"],
+                                "startDate":"yesterday"
+                        ],
+                ]
+        ]
+
+        Set<String> categories = new LinkedHashSet<>();
+
+        Map configMap = [:];
+        if(userGroupNames != null) {
+            for(String userGroupName: userGroupNames) {
+                String userGroupMapKey = userGroupName
+                for(Map.Entry<String,List<String>> stringListEntry: userGroupToSubUserGroupMap) {
+                    if(stringListEntry.getValue().toString().contains(userGroupName)) {
+                        userGroupMapKey = stringListEntry.getKey();
+                    }
+                }
+                String groupIdentifierKey = "";
+                if(actionMap.get('facilityName') && actionMap.get('facilityName').toLowerCase() == "lenox hill" ){
+                    groupIdentifierKey = com.mphrx.util.grails.ApplicationContextUtil.getConfig().userGroupsLHHConfig.find { it.value == userGroupMapKey.trim() }?.key
+                }else{
+                    groupIdentifierKey = com.mphrx.util.grails.ApplicationContextUtil.getConfig().userGroupsConfig.find { it.value == userGroupMapKey.trim() }?.key
+                }
+
+                if(widgetConfigWithTaskCategoryMap.containsKey(groupIdentifierKey)) {
+                    if(actionMap.get('action') == "getTaskCategory"){
+                        if(actionMap.get('facilityName') && actionMap.get('facilityName').toLowerCase() == "lenox hill" ){
+                            categories.addAll(widgetConfigWithTaskCategoryMap[groupIdentifierKey]['taskCategoryLHH'] as List);
+                        }else{
+                            categories.addAll(widgetConfigWithTaskCategoryMap[groupIdentifierKey]['taskCategory'] as List);
+                        }
+                    }else if(actionMap.get('action') == "getTaskStatusConfig"){
+                        if(actionMap.get('identifier')){
+                            return widgetConfigWithTaskCategoryMap[groupIdentifierKey][actionMap.get('widgetType')][actionMap.get('identifier')];
+                        }else{
+                            return widgetConfigWithTaskCategoryMap[groupIdentifierKey][actionMap.get('widgetType')];
+                        }
+                    }
+
+                }else{
+                    if(actionMap.get('action') == "getTaskCategory"){
+                        return [:];
+                    }
+                    else{
+                        return ["taskCategory" : categories];
+                    }
+                }
+            }
+        }
+
+        return ["taskCategory" : categories];
+    }

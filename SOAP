@@ -1,0 +1,182 @@
+
+------------------------
+
+Tutorials point:
+
+SOAP is an acronym for Simple Object Access Protocol. It is an XML-based messaging protocol for exchanging information among computers. SOAP is an application of the XML specification. 
+
+Points to Note
+SOAP is a communication protocol designed to communicate via Internet.
+SOAP can extend HTTP for XML messaging.
+SOAP provides data transport for Web services.
+SOAP can exchange complete documents or call a remote procedure.
+SOAP can be used for broadcasting a message.
+SOAP is platform- and language-independent.
+SOAP is the XML way of defining what information is sent and how.
+SOAP enables client applications to easily connect to remote services and invoke remote methods.
+
+A SOAP message is an ordinary XML document containing the following elements −
+
+Envelope − Defines the start and the end of the message. It is a mandatory element.
+Header − Contains any optional attributes of the message used in processing the message, either at an intermediary point or at the ultimate end-point. It is an optional element.
+Body − Contains the XML data comprising the message being sent. It is a mandatory element.
+Fault − An optional Fault element that provides information about errors that occur while processing the message.
+
+All these elements are declared in the default namespace for the SOAP envelope − http://www.w3.org/2001/12/soap-envelope and the default namespace for SOAP encoding and data types is − http://www.w3.org/2001/12/soap-encoding
+NOTE − All these specifications are subject to change. So keep updating yourself with the latest specifications available on the W3 website.
+
+SOAP Message Structure
+The following block depicts the general structure of a SOAP message −
+
+<?xml version = "1.0"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV = "http://www.w3.org/2001/12/soap-envelope" 
+   SOAP-ENV:encodingStyle = "http://www.w3.org/2001/12/soap-encoding">
+
+   <SOAP-ENV:Header>
+      ...
+      ...
+   </SOAP-ENV:Header>
+   <SOAP-ENV:Body>
+      ...
+      ...
+      <SOAP-ENV:Fault>
+         ...
+         ...
+      </SOAP-ENV:Fault>
+      ...
+   </SOAP-ENV:Body>
+</SOAP_ENV:Envelope>
+
+
+
+------------------------
+
+SOAP is XML based protocol. It is platform independent and language independent. By using SOAP, you will be able to interact with other programming language applications.
+
+Advantages of Soap Web Services
+WS Security: SOAP defines its own security known as WS Security.
+Language and Platform independent: SOAP web services can be written in any programming language and executed in any platform.
+
+Disadvantages of Soap Web Services
+Slow: SOAP uses XML format that must be parsed to be read. It defines many standards that must be followed while developing the SOAP applications. So it is slow and consumes more bandwidth and resource.
+WSDL dependent: SOAP uses WSDL and doesn't have any other mechanism to discover the service.
+
+Advantages of RESTful Web Services
+Fast: RESTful Web Services are fast because there is no strict specification like SOAP. It consumes less bandwidth and resource.
+
+Language and Platform independent: RESTful web services can be written in any programming language and executed in any platform.
+
+Can use SOAP: RESTful web services can use SOAP web services as the implementation.
+
+Permits different data format: RESTful web service permits different data format such as Plain Text, HTML, XML and JSON.
+
+
+No.	SOAP	REST
+1)	SOAP is a protocol.	REST is an architectural style.
+2)	SOAP stands for Simple Object Access Protocol.	REST stands for REpresentational State Transfer.
+3)	SOAP can't use REST because it is a protocol.	REST can use SOAP web services because it is a concept and can use any protocol like HTTP, SOAP.
+4)	SOAP uses services interfaces to expose the business logic.	REST uses URI to expose business logic.
+5)	JAX-WS is the java API for SOAP web services.	JAX-RS is the java API for RESTful web services.
+6)	SOAP defines standards to be strictly followed.	REST does not define too much standards like SOAP.
+7)	SOAP requires more bandwidth and resource than REST.	REST requires less bandwidth and resource than SOAP.
+8)	SOAP defines its own security.	RESTful web services inherits security measures from the underlying transport.
+9)	SOAP permits XML data format only.	REST permits different data format such as Plain text, HTML, XML, JSON etc.
+10)	SOAP is less preferred than REST.	REST more preferred than SOAP.
+
+
+WSDL
+WSDL stands for Web Service Description Language. WSDL is an XML based document that provides technical details about the web service. Some of the useful information in WSDL document are: method name, port types, service end point, binding, method parameters etc.
+
+UDDI
+UDDI is acronym for Universal Description, Discovery and Integration. UDDI is a directory of web services where client applications can lookup for web services. Web Services can register to the UDDI server and make them available to client applications.
+
+-------------------------
+
+Marshalling and Unmarshalling with JAXB 2.0:
+
+JAXB stands for Java Architecture for XML Binding. It provides a mechanism to write Java objects into XML and read XML as objects. Simply put, you can say it is used to convert Java objects into XML and vice-versa. As part of this process, JAXB provides methods for unmarshalling (reading) XML instance documents into Java content, and then marshalling (writing) Java content back into XML instance documents. JAXB also provides a way to generate XML schemas from Java objects.
+
+Features of JAXB 2.0
+Support for all W3C XML Schema features.
+Annotation support with the addition of the javax.xml.bind.annotation package to control this binding.
+Additional validation capabilities through the JAXP 1.3 validation APIs.
+Smaller runtime libraries.
+
+
+In this example, we need to convert Java objects to an XML document. First, we need to create a POJO class.
+
+import javax.xml.bind.annotation.*;
+@XmlRootElement
+public class Student {
+    private String name;
+    private int id;
+    private String subject;
+    Student(){
+    }
+    Student(String name,int id,String subject){
+        this.name=name;
+        this.id=id;
+        this.subject=subject;
+    }
+    @XmlElement
+    public String getName() {
+        return name;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    @XmlAttribute
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
+    }
+    @XmlElement
+    public String getSubject() {
+        return subject;
+    }
+    public void setSubject(String subject) {
+        this.subject = subject;
+    }
+}
+
+@XmlRootElement specifies the root element for the XML document.
+
+@XmlAttribute specifies the attribute for the root element.
+
+@XmlElement specifies the sub-element for the root element.
+
+Now, we will call the marshaller method
+
+try{
+    //creating the JAXB context
+    JAXBContext jContext = JAXBContext.newInstance(Student.class);
+    //creating the marshaller object
+    Marshaller marshallObj = jContext.createMarshaller();
+    //setting the property to show xml format output
+    marshallObj.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+    //setting the values in POJO class
+    Student student = new Student(“abhishek”, 1163, “hadoop”);
+    //calling the marshall method
+    marshallObj.marshal(student, new FileOutputStream(“/home/knoldus/Desktop/student.xml”));
+} catch(Exception e) {
+    e.printStackTrace();
+}
+
+
+Unmarshalling: Converting XML to Objects
+try{
+    //getting the xml file to read
+    File file = new File(“/home/knoldus/Desktop/student.xml”);
+    //creating the JAXB context
+    JAXBContext jContext = JAXBContext.newInstance(Student.class);
+    //creating the unmarshall object
+    Unmarshaller unmarshallerObj = jContext.createUnmarshaller();
+    //calling the unmarshall method
+    Student student=(Student) unmarshallerObj.unmarshal(file);
+    System.out.println(student.getName()+” “+student.getId()+” “+student.getSubject());
+}catch(Exception e){
+    e.printStackTrace();
+}
+
