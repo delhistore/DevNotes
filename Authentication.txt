@@ -1,0 +1,14 @@
+
+------------------OKTA_DEV Video Notes---------------
+
+URL: https://www.youtube.com/watch?v=996OiexHze0&t=1260s
+
+-> Single sign on or SSO: have a single username password to login to multiple platforms. SAML is the protocol used for implementing it.
+-> Delegated authorisation: give access to your data without giving the app your password. Before 2010 startup called YELP asked users for username and password to send invites to their contact after logging in and sweared to delete their credentials afterwards. OAuth is a protocol that helps solve this problem.
+-> Back channel (Highly secure) vs Front Channel (Less secure): When our backend server requests for resource to a resource server its called back channel. We can configure the resource server to respond to requests only coming from our back end server which makes it more secure. Front channel is when our front end directly makes request to our resource server which means requests can come from anywhere and they have to ber served.
+-> Why does the authorisation server sends authorisation code to callback url which sends it to authorisation server to receive a token? To support back channel requests for security purposes.
+-> Cliend ID and Client Secret: When we set up an authorisation server we set a client id and client secret-(which only our server and authorisation server knows). Client id is sent with auth server request.
+-> Open Id connect: Extension to the OAuth2.0. OAuth 2.10 is just a protocol for authorisation not authentication. So only difference is intial request we add open id as scope  in the request to authorisation server which gives us the code, which our backend uses it to fetch ID token + Auth token.
+-> Authentication: Authentication is about validating your credentials like User Name/User ID and password to verify your identity. 
+-> Authorization: Authorization, on the other hand, occurs after your identity is successfully authenticated by the system, which ultimately gives you full permission to access the resources such as information, files, databases, funds, locations, almost anything. In simple terms, authorization determines your ability to access the system and up to what extent.
+-> JWT: Jason Web Token 
