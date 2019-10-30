@@ -1,0 +1,44 @@
+
+-------------MICROSERVICES Notes-----------------
+
+It is an architecture that organizes computer systems into services that can be scaled in future on demand. Monolith architecture is when create one big huge heavy application and deploy multiple instances of it. In microservice architect you build small independent services. 
+
+-------------Spring Notes-----------------------
+
+** Tutorials point **
+Spring is the most popular application development framework for enterprise Java. Millions of developers around the world use Spring Framework to create high performing, easily testable, and reusable code. Spring framework is an open source Java platform. It was initially written by Rod Johnson and was first released under the Apache 2.0 license in June 2003.
+
+To make a class a controller just add annotation @RestController
+TO make a method an endpoint add @GetMapping("/your_endpoint")
+
+------Spring Security Tutorial------------------
+
+It is an application level security which takes care of authentication and authorization. Like to protect an api endpoint against unauthorized users. Allow/block access to URLs to loggedin users and with certain roles.
+Things spring security provides security on following levels:
+1. Username / password authentication
+2. SSO / okta LDAP
+3. App level authorization
+4. Intra App auth like O AUTH
+5. Microservice security using JWT
+6. METHOD LEVEL SECURITY
+
+5 terms frequemtly used: Authentication(Who you are), Authorization(Do you have access to this resource), Principal (Currently logged in user), Granted authority(Different Accesses/Authorities with principal), Role(Group of Authorities)
+
+** How to add spring security to spring boot app?
+In pom.xml add apring-boot-starter-security dependency. It adds a filter instantly for all controller and all methods. 
+Default behaviour: 
+	1. as soon as you add spring security as dependency and restart app, it adds mandatory authentication to all your endpoints if not otherwise configured. ie, creates a filter for all endpoints and all methods
+	2. Adds a login form
+	3. Handles login error
+	4. Generates a new user and default password each time we start the app, logged in console of the app
+
+** How to configure authentication in spring security:
+We configure AuthenticationManagerBuilder: 
+	1. create a class Security configuration extends WebSecurityConfigurerAdapter
+	2. Add annotation EnableWebSecurity
+	3. Expose a bean with annotation @Bean 
+
+** How to configure authorization in spring security: (It is a method chaining of all endpoints)
+We configure HttpSecurity:
+	1. use http.authorizeRequests().antMatchers().hasRole("ROLE_NAME") or hasAnyRole("ROLE_1","ROLE_2")
+	2. We write rules in such a way that most restrictive is defined  first, least restrictive ones follow.

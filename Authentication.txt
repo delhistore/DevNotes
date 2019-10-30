@@ -12,3 +12,51 @@ URL: https://www.youtube.com/watch?v=996OiexHze0&t=1260s
 -> Authentication: Authentication is about validating your credentials like User Name/User ID and password to verify your identity. 
 -> Authorization: Authorization, on the other hand, occurs after your identity is successfully authenticated by the system, which ultimately gives you full permission to access the resources such as information, files, databases, funds, locations, almost anything. In simple terms, authorization determines your ability to access the system and up to what extent.
 -> JWT: Jason Web Token 
+
+------------------Active Directory Notes---------------
+
+Youtube (https://www.youtube.com/watch?v=GfqsFtmJQg0): It is a live directory or a database which contains usernames passwords, security groups. Its main purpose is to provide authentication that is allowing only authorised users to access the network of computers. User accounts are stored in one place(AD) instead of at every server. It is a centralized system for CRUD of user accounts. Can be managed by using a server manager software on windows which provides a UI for querying user accounts printers etc and can also save queries. 
+
+
+Wiki: Active Directory (AD) is a directory service developed by Microsoft for Windows domain networks. It is included in most Windows Server operating systems as a set of processes and services. Active Directory was only in charge of centralized domain management. Starting with Windows Server 2008, however, Active Directory became an umbrella title for a broad range of directory-based identity-related services. A server running Active Directory Domain Service (AD DS) is called a domain controller. It authenticates and authorizes all users and computers in a Windows domain type network—assigning and enforcing security policies for all computers and installing or updating software. For example, when a user logs into a computer that is part of a Windows domain, Active Directory checks the submitted password and determines whether the user is a system administrator or normal user.[4] Also, it allows management and storage of information, provides authentication and authorization mechanisms, and establishes a framework to deploy other related services: Certificate Services, Active Directory Federation Services, Lightweight Directory Services and Rights Management Services. Active Directory uses Lightweight Directory Access Protocol (LDAP) versions 2 and 3, Microsoft's version of Kerberos, and DNS.
+
+----------------LDAP Notes-----------------------------
+
+What is LDAP? It is a protocol for CRUD operations in an active directory.
+LDAP (Lightweight Directory Access Protocol) is a standard protocol used for user management. LDAP has been an important part of directory strategies because of its fast read times, ability to scale, and ease to work with. Many companies depend on on-prem LDAP servers to run their critical business apps.
+
+An LDAP Directory is a directory that uses the LDAP protocol. LDAP is prevalent – in fact, Microsoft Active Directory is an LDAP-based solution.
+
+
+-----------Session vs Token Based Authentication-------
+
+Session Based Authentication
+In the session based authentication, the server will create a session for the user after the user logs in. The session id is then stored on a cookie on the user’s browser. While the user stays logged in, the cookie would be sent along with every subsequent request. The server can then compare the session id stored on the cookie against the session information stored in the memory to verify user’s identity and sends response with the corresponding state!
+
+Token Based Authentication
+Many web applications use JSON Web Token (JWT) instead of sessions for authentication. In the token based application, the server creates JWT with a secret and sends the JWT to the client. The client stores the JWT (usually in local storage) and includes JWT in the header with every request. The server would then validate the JWT with every request from the client and sends response. The biggest difference here is that the user’s state is not stored on the server, as the state is stored inside the token on the client side instead. Most of the modern web applications use JWT for authentication for reasons including scalability and mobile device authentication.
+
+-------------------------OAuth 2.0---------------------
+
+See Oauth2.0 Flow PNG file.
+
+-------------------------OpenID connect----------------
+
+See openID connect Flow PNG file.
+
+-------------------------SAML 2.0----------------------
+
+(Security Assertion Markup Language): It comes into play when we have multiple user credentials to login into different apps and need the result only at one place something like smart on FHIR integration of company A and Company B.
+
+WIKI: Security Assertion Markup Language (SAML, pronounced SAM-el[1]) is an open standard for exchanging authentication and authorization data between parties, in particular, between an identity provider and a service provider. SAML is an XML-based markup language for security assertions (statements that service providers use to make access-control decisions). SAML is also:
+The SAML specification defines three roles: the principal (typically a human user), the identity provider (IdP), and the service provider (SP). In the primary use case addressed by SAML, the principal requests a service from the service provider. The service provider requests and obtains an authentication assertion from the identity provider. On the basis of this assertion, the service provider can make an access control decision, that is, it can decide whether to perform the service for the connected principal.
+
+At the heart of the SAML assertion is a subject (a principal within the context of a particular security domain) about which something is being asserted. The subject is usually (but not necessarily) a human. As in the SAML V2.0 Technical Overview,[4] the terms subject and principal are used interchangeably in this document.
+
+Before delivering the subject-based assertion to the SP, the IdP may request some information from the principal—such as a user name and password—in order to authenticate the principal. SAML specifies the content of the assertion that is passed from the IdP to the SP. In SAML, one identity provider may provide SAML assertions to many service providers. Similarly, one SP may rely on and trust assertions from many independent IdPs.
+
+SAML does not specify the method of authentication at the identity provider. The IdP may use a username and password, or some other form of authentication, including multi-factor authentication. A directory service such as RADIUS, LDAP or Active Directory that allows users to log in with a user name and password is a typical source of authentication tokens at an identity provider.[5] The popular Internet social networking services also provide identity services that in theory could be used to support SAML exchanges.
+A set of XML-based protocol messages
+A set of protocol message bindings
+A set of profiles (utilizing all of the above)
+The single most important use case that SAML addresses is web browser single sign-on (SSO). Single sign-on is relatively easy to accomplish within a security domain (using cookies, for example) but extending SSO across security domains is more difficult and resulted in the proliferation of non-interoperable proprietary technologies. The SAML Web Browser SSO profile was specified and standardized to promote interoperability.[2] (For comparison, the more recent OpenID Connect protocol[3] is an alternative approach to web browser SSO.)
