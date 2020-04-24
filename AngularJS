@@ -1,0 +1,35 @@
+
+----------INTRODUCTION-------------
+
+** Framework vs library
+The impedance mismatch between dynamic applications and static documents is often solved with:
+
+a library - a collection of functions which are useful when writing web apps. Your code is in charge and it calls into the library when it sees fit. E.g., jQuery, React.
+frameworks - a particular implementation of a web application, where your code fills in the details. The framework is in charge and it calls into your code when it needs something app specific. E.g., Angular, durandal, ember, etc.
+
+** Compiling a template
+What does it mean to "compile" an HTML template? For AngularJS, "compilation" means attaching directives to the HTML to make it interactive. The reason we use the term "compile" is that the recursive process of attaching directives mirrors the process of compiling source code in compiled programming languages.
+
+----------DIRECTIVES---------------
+
+data prefix in directives help HTML validation tools
+
+Matching Directives
+AngularJS normalizes an element's tag and attribute name to determine which elements match which directives. We typically refer to directives by their case-sensitive camelCase normalized name (e.g. ngModel).
+The normalization process is as follows:
+1. Strip x- and data- from the front of the element/attributes.
+2. Convert the :, -, or _-delimited name to camelCase.
+
+Before we can write a directive, we need to know how AngularJS's HTML compiler determines when to use a given directive.
+
+Similar to the terminology used when an element matches a selector, we say an element matches a directive when the directive is part of its declaration.
+
+In the following example, we say that the <input> element matches the ngModel directive
+
+<input ng-model="foo">
+The following <input> element also matches ngModel:
+
+<input data-ng-model="foo">
+And the following <person> element matches the person directive:
+
+<person>{{name}}</person>

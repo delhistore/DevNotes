@@ -1,0 +1,2 @@
+
+Exact 10 alphanumeric character: /^[a-zA-Z0-9]{10,10}$/
