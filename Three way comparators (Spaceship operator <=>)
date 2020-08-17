@@ -1,0 +1,38 @@
+8.3. Spaceship operator
+The spaceship operator (<=>) delegates to the compareTo method:
+
+assert (1 <=> 1) == 0
+assert (1 <=> 2) == -1
+assert (2 <=> 1) == 1
+assert ('a' <=> 'z') == -1
+
+
+Comparator checkIfNeedToSwap(a, b) {
+	// for ascending
+	return a - b;
+	// for descending
+	return b - a;
+}
+
+Sort(List a) {
+	
+	if (checkIfNeedToSwap(a, b)) {
+		swap(a, b)
+	} else {
+		continue
+	}
+}
+	
+
+
+Method 2: Using comparator interface- Comparator interface is used to order the objects of user-defined class. This interface is present in java.util package and contains 2 methods compare(Object obj1, Object obj2) and equals(Object element). Using comparator, we can sort the elements based on data members. For instance it may be on rollno, name, age or anything else.
+
+Method of Collections class for sorting List elements is used to sort the elements of List by the given comparator.
+
+// To sort a given list. ComparatorClass must implement 
+// Comparator interface.
+public void sort(List list, ComparatorClass c)
+How does Collections.Sort() work?
+Internally the Sort method does call Compare method of the classes it is sorting. To compare two elements, it asks “Which is greater?” Compare method returns -1, 0 or 1 to say if it is less than, equal, or greater to the other. It uses this result to then determine if they should be swapped for its sort.
+
+
